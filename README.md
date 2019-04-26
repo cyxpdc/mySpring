@@ -94,6 +94,8 @@ AspectProxy：切面抽象代理类，实现Proxy接口，提供一个模板方�
 AopHelper：获取所有的目标类及其被拦截的切面类实例，并通过ProxyManager的createProxy方法来创建代理对象，最后将代理对象放入BeanHelper的BeanMap中(即IOC容器)，才能注入到其他对象中**(在BeanMap中目标类的value设置为代理类，在DispatcherServlet中获取目标类对应的实例的时候就变成了代理类)**
 利用了ClassHelper和BeanHelper
 
+Advisor：将额外的功能委托给它，DefaultAdvisor为默认实现
+
 > 设计：
 >
 > 需要先建立代理对象和目标类的联系，如@Aspect(Controller.class)的代理类对应所有带有@Controller的类；
