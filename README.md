@@ -150,8 +150,6 @@ AOPHelper：proxyMap添加事务管理addTransactionProxy方法，存放事务�
 
 流程：通过JDK动态代理生成代理类，此代理类获取API信息，交给InvokeHandler去处理请求，然后将结果返回给调用此方法的业务代码即可
 
-![1559634580177](F:/markdownPicture/assets/1559634580177.png)
-
 > 类简介：
 
 1.WebfluxclientApplication：使用FactoryBean实现注册userApi
