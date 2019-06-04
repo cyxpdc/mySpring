@@ -1,5 +1,3 @@
-# 来自《架构探险 从零开始写javaweb框架》
-
 # 类简介：
 
 #### 前导工作
@@ -121,3 +119,65 @@ TransactionProxy：事务控制代理，实现Proxy接口，使用ThreadLocal保
 AOPHelper：proxyMap添加事务管理addTransactionProxy方法，存放事务代理：目标类键值对
 
 > 流程：AopHelper中会将BeanMap对应的service类的实例设置为代理，IocHelper注入时，会注入代理类
+
+
+
+- 来自《架构探险 从零开始写javaweb框架》
+
+# WebClient框架开发
+
+开发一个类似Feign的声明式WebService客户端，我们可以将它作为HTTP客户端调用远程HTTP服务，替代HttpClient
+
+使用：
+
+定义接口，如IUserApi，打上ApiServer注解，就能在业务代码中，通过@Autowired注入IUserApi，调用其方法，就等于调用其方法所对应的url，即远程服务
+
+服务端：webfulx、webflux2代码
+
+客户端：webfluxClient，端口改为8081
+
+> 测试代码
+
+1.User：测试domain
+
+2.IUserApi：定义测试方法接口
+
+3.TestController：测试Controller
+
+
+
+> 设计思路：
+
+流程：通过JDK动态代理生成代理类，此代理类获取API信息，交给InvokeHandler去处理请求，然后将结果返回给调用此方法的业务代码即可
+
+![1559634580177](F:/markdownPicture/assets/1559634580177.png)
+
+> 类简介：
+
+1.WebfluxclientApplication：使用FactoryBean实现注册userApi
+
+2.ProxyCreator：创建代理类的接口。技巧：可能为JDK动态代理或CGlib，定义此接口达到扩展性
+
+3.JDKProxyCreator：JDK动态代理创建代理类。需要创建ServerInfo类和MethodInfo类，然后使用Handler获取接口代理对象
+
+4.ServerInfo：封装API服务器信息
+
+5.MethodInfo：封装调用信息
+
+6.RestHandler：调用rest。技巧：可能用webClient，可能用RestTemplate，定义此接口达到扩展性
+
+7.WebClientRestHandler：组合了ServerInfo，在内部就将其初始化，这样handler.invokeRest(methodInfo);即可，不用传ServerInfo，因为ServerInfo不会改变，这样就不用每次创建代理类都初始化，节约资源时间
+
+8.@ApiServer：用来定义服务器
+
+
+
+> 流程：
+
+WebfluxclientApplication会将JDKProxyCreator和IUserApi作为bean注入，IUserApi的实现类为JDKProxyCreator#creator生成的代理类，此代理类封装了IUserApi的信息，调用接口方法时，实际是使用基于WebClient的WebClientRestHandler去调用封装好了的信息类，动态代理的真正作用是提供一个桥梁，使用接口时，通过代理类这个bean去封装接口的消息；
+
+设计思路可参考mybatis，同样是使用接口进行操作，核心技术就是动态代理
+
+
+
+- 来自慕课网视频
