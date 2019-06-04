@@ -1,4 +1,4 @@
-package com.imooc;
+package com.pdc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class WebfluxclientApplicationTests {
+public class WebfluxApplicationTests {
 
 	@Test
 	public void contextLoads() {
