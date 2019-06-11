@@ -141,7 +141,9 @@ SoapConstant：定义SOAP常量，如请求路径和log日志目录
 
 SoapServlet：拦截所有的SOAP请求，发布ws服务
 
+流程：
 
+> 出现**/soap/ *请求时，会到达SoapServlet，发布所有打上@Soap注解的服务类，然后客户端调用的createClient会创建使用者传入的接口class的代理类，然后就可以调用此接口的方法了
 
 
 
