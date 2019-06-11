@@ -120,9 +120,9 @@ AOPHelper：proxyMap添加事务管理addTransactionProxy方法，存放事务�
 
 > 流程：AopHelper中会将BeanMap对应的service类的实例设置为代理，IocHelper注入时，会注入代理类
 
-#### SOAP服务：smart- soap-plugin
 
-###### 1.发布SOAP服务：
+
+#### 插件：SOAP服务：smart- soap-plugin
 
 使用者：
 1.定义测试接口及其实现类，实现类需要加上@Soap、@Service，表示该类需要发布为SOAP服务，@Service表示该类需要注入到IOC容器；注入一个自己编写的如Service对象，使用其方法即可；如CustomerSoapService和CustomerSoapServiceImpl
@@ -134,6 +134,16 @@ CustomerSoapServiceTest为测试类
 @Soap：打上此注解的类表示需要发布为SOAP服务
 
 SoapHelper：基于CXF实现，可以根据WSDL和类的class来创建此类的代理，然后就能调用方法了;发布SOAP服务；调用Web服务时，可开启调用日志，方便调试
+
+SoapConfig：从配置文件smart.properties中获取相关属性
+
+SoapConstant：定义SOAP常量，如请求路径和log日志目录
+
+SoapServlet：拦截所有的SOAP请求，发布ws服务
+
+
+
+
 
 - 来自《架构探险 从零开始写javaweb框架》
 
