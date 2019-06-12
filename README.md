@@ -122,7 +122,7 @@ AOPHelper：proxyMap添加事务管理addTransactionProxy方法，存放事务�
 
 
 
-#### 插件：SOAP服务：smart- soap-plugin
+#### 插件：SOAP服务：mySpring-plugin-soap
 
 使用者：
 1.定义测试接口及其实现类，实现类需要加上@Soap、@Service，表示该类需要发布为SOAP服务，@Service表示该类需要注入到IOC容器；注入一个自己编写的如Service对象，使用其方法即可；如CustomerSoapService和CustomerSoapServiceImpl
@@ -146,6 +146,28 @@ SoapServlet：拦截所有的SOAP请求，发布ws服务
 > 出现**/soap/ *请求时，会到达SoapServlet，发布所有打上@Soap注解的服务类，然后客户端调用的createClient会创建使用者传入的接口class的代理类，然后就可以调用此接口的方法了
 
 
+
+#### 插件：REST服务：mySpring-plugin-rest
+
+使用者：
+1.定义服务：比SOAP服务简单，不需要定义一个接口，只需要定义类及其方法即可，使用JAX-RS API，打上@Rest、@Service、@Consumes(定义输入的数据类型)、@Produces(定义输出的数据类型)，方法则打上@Get、@Post等注解；如CustomerRestService
+2.调用服务：CustomerRestServiceTest
+
+需要添加CXF依赖
+
+类简介：
+
+@Rest：打上此注解的类表示需要发布为REST服务’
+
+RestHelper：类似SoapHelper，额外支持了JSONP与CORS
+
+RestConfig：类似SoapConfig
+
+RestConstant：类似SoapConstant
+
+RestServlet：类似SoapServlet
+
+> 流程与SOAP服务流程相同
 
 - 来自《架构探险 从零开始写javaweb框架》
 
