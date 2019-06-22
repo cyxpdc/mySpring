@@ -120,7 +120,127 @@ AOPHelper：proxyMap添加事务管理addTransactionProxy方法，存放事务�
 
 > 流程：AopHelper中会将BeanMap对应的service类的实例设置为代理，IocHelper注入时，会注入代理类
 
+##### 插件：授权认证服务：mySpring-plugin-security
 
+此处提供基于Shiro二次封装的认证、授权功能
+
+###### 开发者如何使用此框架的认证授权功能?
+
+1.提供配置文件smart-security.ini，描述登录请求路径是什么，哪些请求路径可以匿名访问，哪些请求路径必须通过身份认证才能访问。这个配置文件的本质就是Shiro所需要的配置文件，不过为了不让开发者知道底层实现而已，方便开发者使用
+
+![1554170899710](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1554170899710.png)
+
+因此，我们需要识别配置文件，且实现Shiro提供的相关安全控制接口，将实现类配置在smart.properties，由Shiro来读取这些配置项
+
+2.实现安全控制接口
+
+SmartSecurity：提供认证与授权的三个核心功能：根据用户名获取密码、根据用户名获取角色名集合、根据角色名获取权限名集合
+有如下两种使用方法：
+一.应用程序中提供实现类，完成相应的数据库操作，如test的AppSecurity；
+二.或在smart.properties中提供相关SQL配置项
+区别在于realms为jdbc还是custom
+
+第一种方式的配置方式：
+
+```properties
+smart.plugin.security.realms=custom
+smart.plugin.security.custom.class=org.smart4j.test.AppSecurity
+```
+
+第二种方式的配置方式：
+
+```properties
+smart.plugin.security.realms=jdbc
+smart.plugin.security.jdbc.authc_query="SELECT password FROM user WHERE username = ?"
+smart.plugin.security.jdbc.roles_query="SELECT r.role_name FROM user u, user_role ur, role r WHERE u.id = ur.user_id AND r.id = ur.role_id AND u.username = ?"
+smart.plugin.security.jdbc.roles_query="SELECT p.permission_name FROM role r, role_permission rp, permission p WHERE r.id = rp.role_id AND p.id = rp.permission_id AND r.role_name = ?"
+```
+
+3.测试
+
+提供的测试功能：登录认证
+
+a.JSP页面使用security:guest验证游客；security:user验证登录用户；security:principal获取当前用户username；在这些标签里面进行url的重定向和显示
+
+b.除了JSP标签，也可以使用SecurityHelper的API进行这些操作，如登录
+
+c.SystemController：登录注销功能测试类，调用SecurityHelper的API来实现具体方法
+
+###### 实现
+
+1.加入依赖：Servlet、JSP、Shiro、Smart Framework
+
+2.添加EnvironmentLoaderListener和ShiroFilter，由SmartSecurityPlugin实现
+EnvironmentLoaderListener用来初始化SecurityManager，即读取classpath中的shiro.ini文件，并加载其中的相关配置到内存中，以便ShiroFilter获取；
+ShiroFilter用来拦截客户端请求，获取url与shiro.ini的相关配置项进行比较，完成认证与授权；
+使用servlet3.0来省略web.xml，并将默认读取shiro.ini文件改为读取smart-security.ini文件，这样就封装了Shiro的相关细节，包括配置文件
+
+3.实现ServletContainerInitializer接口(也由SmartSecurityPlugin实现)，并在classpath下的META-INF/services/javax.servlet.ServletContainerInitializer下添加需要初始化的类(如org.smart4j.security.SmartSecurityPlugin)，使Web应用初始化时就完成2的操作
+
+4.创建表：RBAC模型
+
+- 认证部分类简介
+
+SmartSecurity：安全框架接口，由使用者扩展此类实现上述的三个方法，或在smart.properties中配置实现
+
+SecurityHelper：封装安全控制API，如登陆和退出，用户使用登陆退出时，使用这个类的方法
+
+AuthcException：受检异常，登陆失败时做一些事情，用于非法访问时抛出的异常
+
+AuthzException：当前用户无权限访问某个操作时抛出此异常
+
+SmartSecurityPlugin：注册Shiro
+实现javax.servlet.ServletContainerInitializer接口，在META-INF/services/javax.servlet.ServletContainerInitializer文件中添加此实现类的全限定名，通过如上操作，servlet容器才能读取jar包中的ServletContainerInitializer文件，并加载SmartSecurityPlugin
+注册EnvironmentLoaderListener和SmartSecurityFilter
+
+SmartSecurityFilter：扩展了ShiroFilter，**为最核心的对象**，给WebSecurityManager提供了SmartJdbcRealm和SmartCustomRealm，解决"提供认证与授权的三个核心方法"的问题
+SmartJdbcRealm：基于基于sql配置文件实现的JDBCRealm，用于认证+授权
+SmartCustomRealm：基于编程接口SmartSecurity的CustomRealm，用于认证+授权
+
+Md5CredentialsMatcher：MD5密码匹配器，实现了CredentialsMatcher
+
+SecurityConfig：使用ConfigHelper获取smart.properties文件中的配置项
+
+SecurityConstand：安全配置相关常量类
+
+> 流程：使用者在controller层使用SecurityHelper的login、logout来实现登录和注销
+> 登录本质上会使用shiro来获取当前用户和账号密码进行登录，账号密码配置在了SmartJdbcRealm/SmartCustomRealm中，会通过SmartSecurityFilter拦截后使用自定义Realm进行判断
+
+- 授权部分类简介
+
+> 1.使用JSP标签
+
+security.tld：重新定义Shiro提供的JSP标签类，这样可以自己写类作为标签类，只需定义在这个文件里面即可
+此处定义如下三个标签类：
+
+HasAllRolesTag：subject.hasAllRoles(Arrays.asList(roleNames.split(ROLE_NAMES_DELIMITER)))；对应的标签为security:hasAllRoles，即判断当前用户是否拥有其中所有的角色
+
+HasAnyPermissionsTag：subject.isPermitted(permissionName.trim())；对应的标签为security:hasAnyPermissions，即判断当前用户是否拥有其中其中一种权限
+
+HasAllPermissionsTag：subject.isPermittedAll(permNames.split(PERMISSION_NAMES_DELIMITER))；对应的标签为security:hasAllPermissions，即判断当前用户是否拥有其中所有的权限
+
+这三个类实现的本质都是直接调用shiro的API
+
+使用时，在JSP页面这些标签内部写业务逻辑即可
+
+> 2.使用注解
+
+提供的注解：
+
+@User：判断当前用户是否已登录，包括已认证与已记住
+
+@Guest：判断当前用户是否未登录，包括未认证或未记住，即身份为访客
+
+@Authenticated：判断当前用户是否已认证
+
+@HasRoles：判断当前用户是否拥有某种角色
+
+@HasPermissions：判断当前用户是否拥有某种权限
+
+以@User为例进行讲解：
+AuthzAnnotationAspect切面类：**作为Controller的代理对象之一，在执行controller层时，会执行此对象**，实现前置增强机制，即覆盖before方法，判断是否有相关注解来调用shiro的API做相应的操作
+
+> 流程：使用者在controller层的类或方法上打上这些注解，DispatcherServlet到controller层时，执行代理，AuthzAnnotationAspect为代理对象之一，执行before方法来判断是否有相关注解来做相应处理
 
 #### 插件：SOAP服务：mySpring-plugin-soap
 
