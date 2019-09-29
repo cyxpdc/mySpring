@@ -6,8 +6,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.smart4j</groupId>
-    <artifactId>smart-plugin-security</artifactId>
+    <groupId>com.pdc</groupId>
+    <artifactId>mySpring-plugin-security</artifactId>
     <version>1.0.0</version>
 
     <properties>

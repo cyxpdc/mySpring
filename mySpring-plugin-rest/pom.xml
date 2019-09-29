@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.pdc</groupId>
-    <artifactId>mySpring-plugin--rest</artifactId>
+    <artifactId>mySpring-plugin-rest</artifactId>
     <version>1.0.0</version>
 
     <properties>
