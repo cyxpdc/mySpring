@@ -36,8 +36,8 @@
         </dependency>
         <!-- Smart Framework -->
         <dependency>
-            <groupId>org.smart4j</groupId>
-            <artifactId>smart-framework</artifactId>
+            <groupId>com.pdc</groupId>
+            <artifactId>mySpring</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
