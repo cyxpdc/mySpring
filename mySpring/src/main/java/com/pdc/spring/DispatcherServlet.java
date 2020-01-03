@@ -26,22 +26,25 @@ import com.pdc.spring.helper.ControllerHelper;
 import com.pdc.spring.helper.RequestHelper;
 import com.pdc.spring.helper.ServletHelper;
 import com.pdc.spring.helper.UploadHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 请求转发器
- *
  * @author pdc
  */
 @WebServlet(urlPatterns = "/*", loadOnStartup = 0)//接收所有请求
 public class DispatcherServlet extends HttpServlet {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherServlet.class);
+
     @Override
-    public void init(ServletConfig servletConfig) throws ServletException {
+    public void init(ServletConfig servletConfig){
         //初始化相关Helper类
         HelperLoader.init();
         //获取ServletContext对象，用于注册Servlet
         ServletContext servletContext = servletConfig.getServletContext();
-        //获取ServletContext对象，用于注册Servlet注册Servlet(JSP、静态资源)
+        //获取ServletContext对象，用于注册Servlet(JSP、静态资源)
         registerServlet(servletContext);
         //初始化文件上传助手
         UploadHelper.init(servletContext);
@@ -83,11 +86,7 @@ public class DispatcherServlet extends HttpServlet {
                 //返回类型为View或Data
                 Object result;
                 Method actionMethod = handler.getActionMethod();
-                if (param.isEmpty()) {//优化1：判断参数是否为空
-                    result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
-                } else {
-                    result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
-                }
+                result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
                 //返回JSP页面或返回数据对象
                 if (result instanceof View) {
                     handleViewResult((View) result, request, response);//跳转到指定JSP页面
@@ -116,16 +115,23 @@ public class DispatcherServlet extends HttpServlet {
         }
     }
 
-    private void handleDataResult(Data data, HttpServletResponse response) throws IOException {
+    private void handleDataResult(Data data, HttpServletResponse response){
         Object model = data.getModel();
         if (model != null) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            PrintWriter writer = response.getWriter();
-            String json = JsonUtil.toJson(model);
-            writer.write(json);
-            writer.flush();
-            writer.close();
+            PrintWriter writer = null;
+            try {
+                writer = response.getWriter();
+                String json = JsonUtil.toJson(model);
+                writer.write(json);
+                writer.flush();
+            } catch (IOException e) {
+                LOGGER.error("getWriter failure");
+                throw new RuntimeException(e);
+            } finally {
+                writer.close();
+            }
         }
     }
 }

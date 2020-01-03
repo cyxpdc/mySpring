@@ -1,6 +1,6 @@
-package org.smart4j.chapter5.soap;
+package com.pdc.test5.soap;
 
-import org.smart4j.chapter5.model.Customer;
+import com.pdc.test5.model.Customer;
 
 /**
  * 客户 SOAP 服务接口

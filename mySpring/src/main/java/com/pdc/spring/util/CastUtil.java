@@ -2,7 +2,6 @@ package com.pdc.spring.util;
 
 /**
  * 转型操作工具类
- *
  * @author pdc
  */
 public final class CastUtil {
@@ -109,7 +108,14 @@ public final class CastUtil {
     public static boolean castBoolean(Object obj, boolean defaultValue) {
         boolean booleanValue = defaultValue;
         if (obj != null) {
-            booleanValue = Boolean.parseBoolean(castString(obj));
+            String strValue = castString(obj);
+            if (StringUtil.isNotEmpty(strValue)) {
+                try {
+                    booleanValue = Boolean.parseBoolean(strValue);
+                } catch (NumberFormatException e) {
+                    booleanValue = defaultValue;
+                }
+            }
         }
         return booleanValue;
     }

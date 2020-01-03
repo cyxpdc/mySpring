@@ -1,4 +1,4 @@
-package org.smart4j.chapter5.aspect;
+package com.pdc.test5.aspect;
 
 import java.lang.reflect.Method;
 import org.slf4j.Logger;

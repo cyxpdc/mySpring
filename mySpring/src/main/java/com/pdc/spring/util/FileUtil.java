@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 文件操作工具类
- *
  * @author pdc
  */
 public final class FileUtil {
@@ -26,7 +25,7 @@ public final class FileUtil {
      * 创建文件
      */
     public static File createFile(String filePath) {
-        File file;
+        File file = null;
         try {
             file = new File(filePath);
             File parentDir = file.getParentFile();

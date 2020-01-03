@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 public final class StringUtil {
 
     /**
-     * 字符串分隔符
+     * 字符串分隔符,为两个空格
      */
     public static final String SEPARATOR = String.valueOf((char) 29);
 

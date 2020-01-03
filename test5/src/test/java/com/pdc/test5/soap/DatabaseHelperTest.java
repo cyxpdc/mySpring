@@ -1,4 +1,4 @@
-package org.smart4j.chapter5.soap;
+package com.pdc.test5.soap;
 
 import org.junit.Test;
 import com.pdc.spring.helper.DatabaseHelper;

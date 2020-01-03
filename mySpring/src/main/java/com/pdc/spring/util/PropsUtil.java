@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 属性文件工具类
- *
  * @author pdc
  */
 public final class PropsUtil {

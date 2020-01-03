@@ -5,7 +5,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * 封装请求信息
- *
  * @author pdc
  */
 public class Request {
@@ -20,11 +19,6 @@ public class Request {
      */
     private String requestPath;
 
-    /**
-     * 构造方法
-     * @param requestMethod
-     * @param requestPath
-     */
     public Request(String requestMethod, String requestPath) {
         this.requestMethod = requestMethod;
         this.requestPath = requestPath;

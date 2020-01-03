@@ -1,7 +1,7 @@
-package org.smart4j.chapter5.soap;
+package com.pdc.test5.soap;
 
-import org.smart4j.chapter5.model.Customer;
-import org.smart4j.chapter5.service.CustomerService;
+import com.pdc.test5.model.Customer;
+import com.pdc.test5.service.CustomerService;
 import com.pdc.spring.annotation.Inject;
 import com.pdc.spring.annotation.Service;
 import com.pdc.plugin.soap.Soap;

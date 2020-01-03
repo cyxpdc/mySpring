@@ -54,9 +54,13 @@ public final class ClassUtil {
 
     /**
      * 获取指定包名下的所有类
+     * 通过ClassLoader来查找指定包
+     * 如果是在classes文件夹下的class文件，则用遍历文件的方式来获取该包下的所有类名。
+     * 如果这个包名是jar包里面的，那么需要通过遍历jar包内文件的方式来获取该包下的所有类的类名
+     * 类、包名为.,目录为/
      */
     public static Set<Class<?>> getClassSet(String packageName) {
-        Set<Class<?>> classSet = new HashSet<>();//去重
+        Set<Class<?>> classSet = new HashSet<>();
         try {
             Enumeration<URL> urls = getClassLoader().
                                     getResources(packageName.replace(".", "/"));
@@ -67,6 +71,7 @@ public final class ClassUtil {
                     if (protocol.equals("file")) {
                         //得到包路径
                         String packagePath = url.getPath().replaceAll("%20", " ");
+                        System.out.println(packagePath);
                         addClass(classSet, packagePath, packageName);
                     } else if (protocol.equals("jar")) {
                         JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
@@ -103,12 +108,8 @@ public final class ClassUtil {
      * @param packageName
      */
     private static void addClass(Set<Class<?>> classSet, String packagePath, String packageName) {
-        //获取包下的所有.class文件或文件夹
-        File[] files = new File(packagePath).listFiles(new FileFilter() {
-            public boolean accept(File file) {
-                return (file.isFile() && file.getName().endsWith(".class")) || file.isDirectory();
-            }
-        });
+        //获取包下的所有.class文件或文件夹，分别处理
+        File[] files = new File(packagePath).listFiles(file -> (file.isFile() && file.getName().endsWith(".class")) || file.isDirectory());
         for (File file : files) {
             String fileName = file.getName();
             if (file.isFile()) {

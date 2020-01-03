@@ -1,8 +1,8 @@
-package org.smart4j.chapter5.soap;
+package com.pdc.test5.soap;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.smart4j.chapter5.model.Customer;
+import com.pdc.test5.model.Customer;
 import com.pdc.plugin.soap.SoapHelper;
 
 /**

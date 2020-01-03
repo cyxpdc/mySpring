@@ -9,7 +9,6 @@ import com.pdc.spring.helper.IocHelper;
 
 /**
  * 加载相应的 Helper 类
- *
  * @author pdc
  */
 public final class HelperLoader {
@@ -23,7 +22,7 @@ public final class HelperLoader {
                 ControllerHelper.class
         };
         for (Class<?> cls : classList) {
-            ClassUtil.loadClass(cls.getName());//加载类
+            ClassUtil.loadClass(cls.getName());//加载类,forName
         }
     }
 }

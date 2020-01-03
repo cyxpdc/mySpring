@@ -1,15 +1,12 @@
 package com.pdc.spring.util;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * 流操作工具类
- *
  * @author pdc
  */
 public final class StreamUtil {
@@ -19,10 +16,12 @@ public final class StreamUtil {
     /**
      * 从输入流中获取字符串形式的信息
      */
-    public static String getString(InputStream is) {
+    public static String getStringInfo(InputStream is) {
         StringBuilder sb = new StringBuilder();
+        BufferedReader reader = null;
+        InputStreamReader isReader = new InputStreamReader(is);
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            reader = new BufferedReader(isReader);
             String line;
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
@@ -30,6 +29,13 @@ public final class StreamUtil {
         } catch (Exception e) {
             LOGGER.error("get string failure", e);
             throw new RuntimeException(e);
+        } finally {
+            try {
+                reader.close();
+                isReader.close();
+            } catch (IOException e) {
+                LOGGER.error("close Reader failure", e);
+            }
         }
         return sb.toString();
     }

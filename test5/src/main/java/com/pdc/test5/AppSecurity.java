@@ -1,4 +1,4 @@
-package org.smart4j.chapter5;
+package com.pdc.test5;
 
 import java.util.Set;
 import com.pdc.spring.helper.DatabaseHelper;

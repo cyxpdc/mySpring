@@ -4,7 +4,6 @@ import java.io.InputStream;
 
 /**
  * 封装上传文件参数
- *
  * @author pdc
  */
 public class FileParam {

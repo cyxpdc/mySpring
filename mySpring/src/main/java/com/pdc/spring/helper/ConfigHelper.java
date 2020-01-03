@@ -7,7 +7,7 @@ import com.pdc.spring.util.PropsUtil;
 /**
  * 属性文件助手类
  * 用来获取配置文件的相关属性
- *
+ * String有多个方法，值得抽取，int只有一个，就没必要了
  * @author pdc
  */
 public final class ConfigHelper {
@@ -20,56 +20,56 @@ public final class ConfigHelper {
      * 获取 JDBC 驱动
      */
     public static String getJdbcDriver() {
-        return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.JDBC_DRIVER);
+        return getString(ConfigConstant.JDBC_DRIVER);
+        //return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.JDBC_DRIVER);
     }
 
     /**
      * 获取 JDBC URL
      */
     public static String getJdbcUrl() {
-        return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.JDBC_URL);
+        return getString(ConfigConstant.JDBC_URL);
+        //return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.JDBC_URL);
     }
 
     /**
      * 获取 JDBC 用户名
      */
     public static String getJdbcUsername() {
-        return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.JDBC_USERNAME);
+        return getString(ConfigConstant.JDBC_USERNAME);
+        //return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.JDBC_USERNAME);
     }
 
     /**
      * 获取 JDBC 密码
      */
     public static String getJdbcPassword() {
-        return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.JDBC_PASSWORD);
+        return getString(ConfigConstant.JDBC_PASSWORD);
+        //return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.JDBC_PASSWORD);
     }
 
     /**
      * 获取应用基础包名
      */
     public static String getAppBasePackage() {
-        return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.APP_BASE_PACKAGE);
+        return getString(ConfigConstant.APP_BASE_PACKAGE);
+        //return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.APP_BASE_PACKAGE);
     }
 
     /**
      * 获取应用 JSP 路径
      */
     public static String getAppJspPath() {
-        return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.APP_JSP_PATH, "/WEB-INF/view/");
+        return getString(ConfigConstant.APP_JSP_PATH,"/WEB-INF/view/");
+        //return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.APP_JSP_PATH, "/WEB-INF/view/");
     }
 
     /**
      * 获取应用静态资源路径
      */
     public static String getAppAssetPath() {
-        return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.APP_ASSET_PATH, "/asset/");
-    }
-
-    /**
-     * 获取应用文件上传限制
-     */
-    public static int getAppUploadLimit() {
-        return PropsUtil.getInt(CONFIG_PROPS, ConfigConstant.APP_UPLOAD_LIMIT, 10);
+        return getString(ConfigConstant.APP_ASSET_PATH,"/asset/");
+        //return PropsUtil.getString(CONFIG_PROPS, ConfigConstant.APP_ASSET_PATH, "/asset/");
     }
 
     /**
@@ -79,13 +79,16 @@ public final class ConfigHelper {
         return PropsUtil.getString(CONFIG_PROPS, key);
     }
 
-    /**
-     * 根据属性名获取 int 类型的属性值
-     */
-    public static int getInt(String key) {
-        return PropsUtil.getInt(CONFIG_PROPS, key);
+    public static String getString(String key,String defaultValue) {
+        return PropsUtil.getString(CONFIG_PROPS, key, defaultValue);
     }
-
+    /**
+     * 获取应用文件上传限制
+     */
+    public static int getAppUploadLimit() {
+        //return getInt(ConfigConstant.APP_UPLOAD_LIMIT,10);
+        return PropsUtil.getInt(CONFIG_PROPS, ConfigConstant.APP_UPLOAD_LIMIT, 10);
+    }
     /**
      * 根据属性名获取 boolean 类型的属性值
      */

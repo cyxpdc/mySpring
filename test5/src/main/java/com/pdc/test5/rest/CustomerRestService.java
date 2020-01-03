@@ -1,4 +1,4 @@
-package org.smart4j.chapter5.rest;
+package com.pdc.test5.rest;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -6,8 +6,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.smart4j.chapter5.model.Customer;
-import org.smart4j.chapter5.service.CustomerService;
+
+import com.pdc.test5.model.Customer;
+import com.pdc.test5.service.CustomerService;
 import com.pdc.spring.annotation.Inject;
 import com.pdc.spring.annotation.Service;
 import com.pdc.plugin.rest.Rest;

@@ -1,4 +1,4 @@
-package org.smart4j.chapter5.controller;
+package com.pdc.test5.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

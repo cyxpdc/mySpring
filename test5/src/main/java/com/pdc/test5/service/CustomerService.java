@@ -1,8 +1,9 @@
-package org.smart4j.chapter5.service;
+package com.pdc.test5.service;
 
 import java.util.List;
 import java.util.Map;
-import org.smart4j.chapter5.model.Customer;
+
+import com.pdc.test5.model.Customer;
 import com.pdc.spring.annotation.Service;
 import com.pdc.spring.annotation.Transaction;
 import com.pdc.spring.bean.FileParam;

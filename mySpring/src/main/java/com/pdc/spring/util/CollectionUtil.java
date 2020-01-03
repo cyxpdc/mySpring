@@ -7,7 +7,6 @@ import org.apache.commons.collections4.MapUtils;
 
 /**
  * 集合工具类
- *
  * @author pdc
  */
 public final class CollectionUtil {

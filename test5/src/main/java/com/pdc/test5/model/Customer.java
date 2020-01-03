@@ -1,4 +1,4 @@
-package org.smart4j.chapter5.model;
+package com.pdc.test5.model;
 
 /**
  * 客户

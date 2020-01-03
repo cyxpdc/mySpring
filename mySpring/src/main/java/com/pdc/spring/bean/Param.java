@@ -13,7 +13,6 @@ import com.pdc.spring.util.StringUtil;
  * 请求参数对象
  * 一个表单的参数可分为：表单参数或文件参数
  * 可通过一个form表单来上传文件
- *
  * @author pdc
  */
 public class Param {
@@ -39,7 +38,7 @@ public class Param {
      * 返回值为Map<String, Object>，这样就可以减少以前代码的改动
      */
     public Map<String, Object> getFieldMap() {
-        Map<String, Object> fieldMap = new HashMap<String, Object>();
+        Map<String, Object> fieldMap = new HashMap<>();
         if (CollectionUtil.isNotEmpty(formParamList)) {
             for (FormParam formParam : formParamList) {
                 String fieldName = formParam.getFieldName();
@@ -58,7 +57,7 @@ public class Param {
      * 一个字段名可对应多个文件，实现多文件上传的需求
      */
     public Map<String, List<FileParam>> getFileMap() {
-        Map<String, List<FileParam>> fileMap = new HashMap<String, List<FileParam>>();
+        Map<String, List<FileParam>> fileMap = new HashMap<>();
         if (CollectionUtil.isNotEmpty(fileParamList)) {
             for (FileParam fileParam : fileParamList) {
                 String fieldName = fileParam.getFieldName();
@@ -66,7 +65,7 @@ public class Param {
                 if (fileMap.containsKey(fieldName)) {
                     fileParamList = fileMap.get(fieldName);
                 } else {
-                    fileParamList = new ArrayList<FileParam>();
+                    fileParamList = new ArrayList<>();
                 }
                 fileParamList.add(fileParam);
                 fileMap.put(fieldName, fileParamList);
@@ -108,13 +107,6 @@ public class Param {
     }
 
     /**
-     * 根据参数名获取 double 型参数值
-     */
-    public double getDouble(String name) {
-        return CastUtil.castDouble(getFieldMap().get(name));
-    }
-
-    /**
      * 根据参数名获取 long 型参数值
      */
     public long getLong(String name) {
@@ -122,18 +114,25 @@ public class Param {
     }
 
     /**
+     * 根据参数名获取 double 型参数值
+     */
+    /*public double getDouble(String name) {
+        return CastUtil.castDouble(getFieldMap().get(name));
+    }*/
+
+    /**
      * 根据参数名获取 int 型参数值
      */
-    public int getInt(String name) {
+    /*public int getInt(String name) {
         return CastUtil.castInt(getFieldMap().get(name));
-    }
+    }*/
 
     /**
      * 根据参数名获取 boolean 型参数值
      */
-    public boolean getBoolean(String name) {
+    /*public boolean getBoolean(String name) {
         return CastUtil.castBoolean(getFieldMap().get(name));
-    }
+    }*/
 
     /*public long getLong(String name){
         return CastUtil.castLong(paramMap.get(name));

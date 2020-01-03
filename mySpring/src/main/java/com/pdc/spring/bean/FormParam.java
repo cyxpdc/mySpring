@@ -2,7 +2,6 @@ package com.pdc.spring.bean;
 
 /**
  * 封装表单参数
- *
  * @author pdc
  */
 public class FormParam {

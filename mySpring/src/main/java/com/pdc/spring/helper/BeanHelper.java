@@ -6,13 +6,14 @@ import java.util.Set;
 import com.pdc.spring.util.ReflectionUtil;
 
 /**
- * Bean 助手类
- *
+ * Bean容器
  * @author pdc
  */
 public final class BeanHelper {
     /**
      * 保存所有bean实例
+     * 此处线程安全：https://www.oschina.net/question/2842581_2262826
+     * 对象都是单例的
      */
     private static final Map<Class<?>, Object> BEAN_MAP = new HashMap<>();
 
@@ -22,6 +23,7 @@ public final class BeanHelper {
             Object obj = ReflectionUtil.newInstance(beanClass);
             BEAN_MAP.put(beanClass, obj);
         }
+
     }
 
     /**
@@ -35,7 +37,7 @@ public final class BeanHelper {
      * 获取 Bean 实例
      */
     @SuppressWarnings("unchecked")
-    public static <T> T getBean(Class<T> cls) {
+    public static <T> T getBean(Class<?> cls) {
         if (!BEAN_MAP.containsKey(cls)) {
             throw new RuntimeException("can not get bean by class: " + cls);
         }

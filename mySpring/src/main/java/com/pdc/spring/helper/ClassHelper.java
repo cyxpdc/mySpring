@@ -10,7 +10,6 @@ import com.pdc.spring.util.ClassUtil;
 
 /**
  * 类操作助手类，封装ClassUtil
- *
  * @author pdc
  */
 public final class ClassHelper {
@@ -20,8 +19,11 @@ public final class ClassHelper {
      */
     private static final Set<Class<?>> CLASS_SET;
 
+    /**
+     * 获取应用程序类集合
+     */
     static {
-        CLASS_SET = ClassUtil.getClassSet(ConfigHelper.getAppBasePackage());//获取类集合
+        CLASS_SET = ClassUtil.getClassSet(ConfigHelper.getAppBasePackage());
     }
 
     /**
@@ -35,33 +37,35 @@ public final class ClassHelper {
      * 获取应用包名下所有 Service 类
      */
     public static Set<Class<?>> getServiceClassSet() {
-        Set<Class<?>> classSet = new HashSet<>();
+        return getClassSetByAnnotation(Service.class);
+        /*Set<Class<?>> classSet = new HashSet<>();
         for (Class<?> cls : CLASS_SET) {
             if (cls.isAnnotationPresent(Service.class)) {
                 classSet.add(cls);
             }
         }
-        return classSet;
+        return classSet;*/
     }
 
     /**
      * 获取应用包名下所有 Controller 类
      */
     public static Set<Class<?>> getControllerClassSet() {
-        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        return getClassSetByAnnotation(Controller.class);
+        /*Set<Class<?>> classSet = new HashSet<>();
         for (Class<?> cls : CLASS_SET) {
             if (cls.isAnnotationPresent(Controller.class)) {
                 classSet.add(cls);
             }
         }
-        return classSet;
+        return classSet;*/
     }
 
     /**
      * 获取应用包名下所有 Bean 类（包括：Service、Controller 等）
      */
     public static Set<Class<?>> getBeanClassSet() {
-        Set<Class<?>> beanClassSet = new HashSet<Class<?>>();
+        Set<Class<?>> beanClassSet = new HashSet<>();
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
         return beanClassSet;
@@ -72,7 +76,7 @@ public final class ClassHelper {
      * 因为需要扩展AspectProxy抽象类的所有具体类
      */
     public static Set<Class<?>> getClassSetBySuper(Class<?> superClass) {
-        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        Set<Class<?>> classSet = new HashSet<>();
         for (Class<?> cls : CLASS_SET) {
             if (superClass.isAssignableFrom(cls) && !superClass.equals(cls)) {
                 classSet.add(cls);
@@ -86,7 +90,7 @@ public final class ClassHelper {
      * 因为需要获取带有Aspect注解的所有类
      */
     public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotationClass) {
-        Set<Class<?>> classSet = new HashSet<Class<?>>();
+        Set<Class<?>> classSet = new HashSet<>();
         for (Class<?> cls : CLASS_SET) {
             if (cls.isAnnotationPresent(annotationClass)) {
                 classSet.add(cls);

@@ -1,9 +1,10 @@
-package org.smart4j.chapter5.controller;
+package com.pdc.test5.controller;
 
 import java.util.List;
 import java.util.Map;
-import org.smart4j.chapter5.model.Customer;
-import org.smart4j.chapter5.service.CustomerService;
+
+import com.pdc.test5.model.Customer;
+import com.pdc.test5.service.CustomerService;
 import com.pdc.spring.annotation.Action;
 import com.pdc.spring.annotation.Controller;
 import com.pdc.spring.annotation.Inject;

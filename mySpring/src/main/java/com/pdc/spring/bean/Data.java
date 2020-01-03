@@ -2,7 +2,6 @@ package com.pdc.spring.bean;
 
 /**
  * 返回数据对象
- *
  * @author pdc
  */
 public class Data {

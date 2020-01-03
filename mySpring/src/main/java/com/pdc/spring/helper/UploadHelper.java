@@ -28,7 +28,6 @@ import com.pdc.spring.util.StringUtil;
 
 /**
  * 文件上传助手类
- *
  * @author pdc
  */
 public final class UploadHelper {
@@ -63,8 +62,8 @@ public final class UploadHelper {
      * 从当前请求创建Param对象
      */
     public static Param createParam(HttpServletRequest request) throws IOException {
-        List<FormParam> formParamList = new ArrayList<FormParam>();
-        List<FileParam> fileParamList = new ArrayList<FileParam>();
+        List<FormParam> formParamList = new ArrayList<>();
+        List<FileParam> fileParamList = new ArrayList<>();
         try {
             //解析请求参数parseParameterMap
             Map<String, List<FileItem>> fileItemListMap = servletFileUpload.parseParameterMap(request);
@@ -81,11 +80,9 @@ public final class UploadHelper {
                                 //获取上传文件的真实文件名
                                 String fileName = FileUtil.getRealFileName(new String(fileItem.getName().getBytes(), "UTF-8"));
                                 if (StringUtil.isNotEmpty(fileName)) {
-                                    long fileSize = fileItem.getSize();
-                                    String contentType = fileItem.getContentType();
-                                    InputStream inputSteam = fileItem.getInputStream();
                                     //封装FileParam
-                                    fileParamList.add(new FileParam(fieldName, fileName, fileSize, contentType, inputSteam));
+                                    fileParamList.add(new FileParam(fieldName, fileName,
+                                            fileItem.getSize(), fileItem.getContentType(), fileItem.getInputStream()));
                                 }
                             }
                         }

@@ -14,7 +14,6 @@ import com.pdc.spring.util.CollectionUtil;
 /**
  * 控制器助手类
  * 根据指定的requestMethod, requestPath封装Request就能得到对应Handler的controllerClass, method
- *
  * @author pdc
  */
 public final class ControllerHelper {
@@ -22,7 +21,7 @@ public final class ControllerHelper {
      * 用于存放请求与处理器的映射关系:
      * requestMethod, requestPath:controllerClass, method
      */
-    private static final Map<Request, Handler> ACTION_MAP = new HashMap<Request, Handler>();
+    private static final Map<Request, Handler> ACTION_MAP = new HashMap<>();
 
     static {
         Set<Class<?>> controllerClassSet = ClassHelper.getControllerClassSet();//获取所有Controller类
@@ -37,6 +36,8 @@ public final class ControllerHelper {
                             Action action = method.getAnnotation(Action.class);
                             String mapping = action.value();//获取请求类型与路径
                             //匹配，如：@Action("get:/customer")
+                            //+:一次或多次匹配前面的字符或子表达式
+                            //*:零次或多次匹配前面的字符或子表达式
                             if (mapping.matches("\\w+:/\\w*")) {
                                 String[] array = mapping.split(":");
                                 //封装数据
