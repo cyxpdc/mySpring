@@ -9,9 +9,7 @@ import com.pdc.spring.proxy.AspectProxy;
 
 /**
  * 拦截 Controller 所有方法
- *
- * @author huangyong
- * @since 1.0.0
+ * @author pdc
  */
 @Aspect(Controller.class)
 public class ControllerAspect extends AspectProxy {

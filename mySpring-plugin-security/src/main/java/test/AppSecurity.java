@@ -1,7 +1,7 @@
 package test;
 
 import com.pdc.spring.helper.DatabaseHelper;
-import org.smart4j.plugin.security.SmartSecurity;
+import com.pdc.plugin.security.SmartSecurity;
 
 import java.util.Set;
 

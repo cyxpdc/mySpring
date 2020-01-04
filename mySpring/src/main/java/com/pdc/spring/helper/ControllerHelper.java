@@ -42,9 +42,8 @@ public final class ControllerHelper {
                                 String[] array = mapping.split(":");
                                 //封装数据
                                 if (ArrayUtil.isNotEmpty(array) && array.length == 2) {
-                                    String requestMethod = array[0];
-                                    String requestPath = array[1];
-                                    Request request = new Request(requestMethod, requestPath);
+                                    //array[0]是requestMethod，array[1]是requestPath
+                                    Request request = new Request(array[0], array[1]);
                                     Handler handler = new Handler(controllerClass, method);
                                     ACTION_MAP.put(request, handler);
                                 }

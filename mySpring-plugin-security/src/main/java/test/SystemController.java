@@ -6,8 +6,8 @@ import com.pdc.spring.bean.Param;
 import com.pdc.spring.bean.View;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.smart4j.plugin.security.SecurityHelper;
-import org.smart4j.plugin.security.exception.AuthcException;
+import com.pdc.plugin.security.SecurityHelper;
+import com.pdc.plugin.security.exception.AuthcException;
 
 /**
  * 处理系统请求

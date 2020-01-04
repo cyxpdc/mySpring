@@ -103,7 +103,7 @@
     <tag>
         <description>判断当前用户是否拥有其中所有的角色（逗号分隔，表示“与”的关系）</description>
         <name>hasAllRoles</name>
-        <tag-class>org.smart4j.plugin.security.tag.HasAllRolesTag</tag-class>
+        <tag-class>com.pdc.plugin.security.tag.HasAllRolesTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>name</name>
@@ -141,7 +141,7 @@
     <tag>
         <description>判断当前用户是否拥有其中某一种权限（逗号分隔，表示“或”的关系）</description>
         <name>hasAnyPermissions</name>
-        <tag-class>org.smart4j.plugin.security.tag.HasAnyPermissionsTag</tag-class>
+        <tag-class>com.pdc.plugin.security.tag.HasAnyPermissionsTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>name</name>
@@ -153,7 +153,7 @@
     <tag>
         <description>判断当前用户是否拥有其中所有的权限（逗号分隔，表示“与”的关系）</description>
         <name>hasAllPermissions</name>
-        <tag-class>org.smart4j.plugin.security.tag.HasAllPermissionsTag</tag-class>
+        <tag-class>com.pdc.plugin.security.tag.HasAllPermissionsTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>name</name>

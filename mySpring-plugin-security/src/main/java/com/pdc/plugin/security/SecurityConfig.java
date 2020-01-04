@@ -1,11 +1,10 @@
-package org.smart4j.plugin.security;
+package com.pdc.plugin.security;
 
 import com.pdc.spring.helper.ConfigHelper;
 import com.pdc.spring.util.ReflectionUtil;
 
 /**
  * 从配置文件中获取相关属性
- *
  * @author pdc
  */
 public final class SecurityConfig {

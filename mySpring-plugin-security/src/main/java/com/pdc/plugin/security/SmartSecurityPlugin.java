@@ -1,4 +1,4 @@
-package org.smart4j.plugin.security;
+package com.pdc.plugin.security;
 
 import java.util.Set;
 import javax.servlet.FilterRegistration;
@@ -10,7 +10,6 @@ import org.apache.shiro.web.env.EnvironmentLoaderListener;
 /**
  * Smart Security 插件
  * 用来注册Shiro
- *
  * @author pdc
  */
 public class SmartSecurityPlugin implements ServletContainerInitializer {

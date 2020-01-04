@@ -2,11 +2,10 @@ package com.pdc.test5;
 
 import java.util.Set;
 import com.pdc.spring.helper.DatabaseHelper;
-import org.smart4j.plugin.security.SmartSecurity;
+import com.pdc.plugin.security.SmartSecurity;
 
 /**
  * 应用安全控制
- *
  * @author pdc
  */
 public class AppSecurity implements SmartSecurity {

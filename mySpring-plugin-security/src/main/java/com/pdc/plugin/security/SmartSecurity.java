@@ -1,4 +1,4 @@
-package org.smart4j.plugin.security;
+package com.pdc.plugin.security;
 
 import org.apache.shiro.mgt.SecurityManager;
 
@@ -14,7 +14,6 @@ import java.util.Set;
  *     <li>smart.security.jdbc.roles_query：根据用户名获取角色名集合</li>
  *     <li>smart.security.jdbc.permissions_query：根据角色名获取权限名集合</li>
  * </ul>
- *
  * @author pdc
  */
 public interface SmartSecurity {

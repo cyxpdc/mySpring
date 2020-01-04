@@ -1,4 +1,4 @@
-package org.smart4j.plugin.security.aspect;
+package com.pdc.plugin.security.aspect;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -8,16 +8,15 @@ import org.apache.shiro.subject.Subject;
 import com.pdc.spring.annotation.Aspect;
 import com.pdc.spring.annotation.Controller;
 import com.pdc.spring.proxy.AspectProxy;
-import org.smart4j.plugin.security.annotation.Authenticated;
-import org.smart4j.plugin.security.annotation.Guest;
-import org.smart4j.plugin.security.annotation.HasPermissions;
-import org.smart4j.plugin.security.annotation.HasRoles;
-import org.smart4j.plugin.security.annotation.User;
-import org.smart4j.plugin.security.exception.AuthzException;
+import com.pdc.plugin.security.annotation.Authenticated;
+import com.pdc.plugin.security.annotation.Guest;
+import com.pdc.plugin.security.annotation.HasPermissions;
+import com.pdc.plugin.security.annotation.HasRoles;
+import com.pdc.plugin.security.annotation.User;
+import com.pdc.plugin.security.exception.AuthzException;
 
 /**
  * 授权注解切面
- *
  * @author pdc
  */
 @Aspect(Controller.class)

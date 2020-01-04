@@ -1,9 +1,9 @@
-package org.smart4j.plugin.security.realm;
+package com.pdc.plugin.security.realm;
 
+import com.pdc.plugin.security.SecurityConfig;
+import com.pdc.plugin.security.password.Md5CredentialsMatcher;
 import org.apache.shiro.realm.jdbc.JdbcRealm;
 import com.pdc.spring.helper.DatabaseHelper;
-import org.smart4j.plugin.security.SecurityConfig;
-import org.smart4j.plugin.security.password.Md5CredentialsMatcher;
 
 /**
  * 基于 Smart 的 JDBC Realm（需要提供相关 smart.plugin.security.jdbc.* 配置项,即相关sql语句）

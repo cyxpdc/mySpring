@@ -6,8 +6,8 @@ import com.pdc.spring.annotation.Action;
 import com.pdc.spring.annotation.Controller;
 import com.pdc.spring.bean.Param;
 import com.pdc.spring.bean.View;
-import org.smart4j.plugin.security.SecurityHelper;
-import org.smart4j.plugin.security.exception.AuthcException;
+import com.pdc.plugin.security.SecurityHelper;
+import com.pdc.plugin.security.exception.AuthcException;
 
 /**
  * 处理系统请求

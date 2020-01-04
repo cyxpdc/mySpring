@@ -15,9 +15,7 @@ import com.pdc.plugin.rest.Rest;
 
 /**
  * 客户 REST 服务
- *
  * @author pdc
- * @since 1.0.0
  */
 @Rest
 @Service

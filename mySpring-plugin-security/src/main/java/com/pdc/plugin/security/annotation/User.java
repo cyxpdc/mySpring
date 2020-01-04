@@ -1,4 +1,4 @@
-package org.smart4j.plugin.security.annotation;
+package com.pdc.plugin.security.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

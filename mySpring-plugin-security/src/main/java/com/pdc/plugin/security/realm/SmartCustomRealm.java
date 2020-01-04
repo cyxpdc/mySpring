@@ -1,7 +1,11 @@
-package org.smart4j.plugin.security.realm;
+package com.pdc.plugin.security.realm;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.pdc.plugin.security.SecurityConstant;
+import com.pdc.plugin.security.SmartSecurity;
+import com.pdc.plugin.security.password.Md5CredentialsMatcher;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -13,9 +17,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.smart4j.plugin.security.SecurityConstant;
-import org.smart4j.plugin.security.SmartSecurity;
-import org.smart4j.plugin.security.password.Md5CredentialsMatcher;
 
 /**
  * 基于 Smart 的自定义 Realm（需要实现 SmartSecurity 接口）

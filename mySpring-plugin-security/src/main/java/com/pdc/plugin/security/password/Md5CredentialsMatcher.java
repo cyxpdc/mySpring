@@ -1,4 +1,4 @@
-package org.smart4j.plugin.security.password;
+package com.pdc.plugin.security.password;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;

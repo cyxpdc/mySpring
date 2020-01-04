@@ -1,10 +1,8 @@
-package org.smart4j.plugin.security.exception;
+package com.pdc.plugin.security.exception;
 
 /**
  * 授权异常（当权限无效时抛出）
- *
- * @author huangyong
- * @since 1.0.0
+ * @author pdc
  */
 public class AuthzException extends RuntimeException {
 

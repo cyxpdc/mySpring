@@ -1,4 +1,4 @@
-package org.smart4j.plugin.security;
+package com.pdc.plugin.security;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -6,12 +6,11 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.smart4j.plugin.security.exception.AuthcException;
+import com.pdc.plugin.security.exception.AuthcException;
 
 /**
  * Security 助手类
  * 本质上是调用Shiro的登陆退出
- *
  * @author pdc
  */
 public final class SecurityHelper {

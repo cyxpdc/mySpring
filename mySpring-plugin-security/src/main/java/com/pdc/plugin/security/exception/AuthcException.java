@@ -1,10 +1,8 @@
-package org.smart4j.plugin.security.exception;
+package com.pdc.plugin.security.exception;
 
 /**
  * 认证异常（当非法访问时抛出）
- *
- * @author huangyong
- * @since 1.0.0
+ * @author pdc
  */
 public class AuthcException extends Exception {
 

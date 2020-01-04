@@ -1,4 +1,4 @@
-package org.smart4j.plugin.security.tag;
+package com.pdc.plugin.security.tag;
 
 import java.util.Arrays;
 import org.apache.shiro.subject.Subject;

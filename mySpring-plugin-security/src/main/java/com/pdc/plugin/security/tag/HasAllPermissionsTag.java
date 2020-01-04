@@ -1,4 +1,4 @@
-package org.smart4j.plugin.security.tag;
+package com.pdc.plugin.security.tag;
 
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.tags.PermissionTag;
