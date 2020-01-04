@@ -36,9 +36,14 @@ public class Param {
      * 获取请求参数映射
      * 如表单字段的键值对映射，或其他地方传来的参数
      * 返回值为Map<String, Object>，这样就可以减少以前代码的改动
+     * 优化：不用重复创建HashMap
      */
+
+    private Map<String, Object> fieldMap = new HashMap<>();
+
     public Map<String, Object> getFieldMap() {
-        Map<String, Object> fieldMap = new HashMap<>();
+        //Map<String, Object> fieldMap = new HashMap<>();
+        fieldMap.clear();
         if (CollectionUtil.isNotEmpty(formParamList)) {
             for (FormParam formParam : formParamList) {
                 String fieldName = formParam.getFieldName();
@@ -55,9 +60,14 @@ public class Param {
     /**
      * 获取上传文件映射
      * 一个字段名可对应多个文件，实现多文件上传的需求
+     * 优化：不用重复创建HashMap
      */
+
+    private Map<String, List<FileParam>> fileMap = new HashMap<>();
+
     public Map<String, List<FileParam>> getFileMap() {
-        Map<String, List<FileParam>> fileMap = new HashMap<>();
+        //Map<String, List<FileParam>> fileMap = new HashMap<>();
+        fileMap.clear();
         if (CollectionUtil.isNotEmpty(fileParamList)) {
             for (FileParam fileParam : fileParamList) {
                 String fieldName = fileParam.getFieldName();

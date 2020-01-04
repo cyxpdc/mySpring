@@ -61,7 +61,7 @@ public final class RequestHelper {
     }
 
     /**
-     * 解析输入流
+     * 解析输入流，先通过&拆为kv对，再用=拆开kv对
      * @param request
      * @return
      * @throws IOException
