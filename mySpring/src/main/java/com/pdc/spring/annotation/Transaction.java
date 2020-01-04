@@ -7,7 +7,6 @@ import java.lang.annotation.Target;
 
 /**
  * 定义需要事务控制的方法
- *
  * @author pdc
  */
 @Target(ElementType.METHOD)

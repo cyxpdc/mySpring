@@ -29,7 +29,6 @@ import com.pdc.spring.util.CollectionUtil;
 
 /**
  * 数据库操作助手类
- *
  * @author pdc
  */
 public final class DatabaseHelper {
@@ -43,7 +42,7 @@ public final class DatabaseHelper {
     private static final BasicDataSource DATA_SOURCE;
 
     static {
-        CONNECTION_HOLDER = new ThreadLocal<Connection>();
+        CONNECTION_HOLDER = new ThreadLocal<>();
 
         QUERY_RUNNER = new QueryRunner();
 

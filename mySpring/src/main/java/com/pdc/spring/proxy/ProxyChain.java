@@ -9,7 +9,6 @@ import net.sf.cglib.proxy.MethodProxy;
  * 代理链
  * 可能每种类有多个代理，所以用它，为额外补充
  * Controller调用service的方法时，调用此类的doProxyChain
- *
  * @author pdc
  */
 public class ProxyChain {
@@ -20,7 +19,7 @@ public class ProxyChain {
     private final MethodProxy methodProxy;//方法代理
     private final Object[] methodParams;//方法参数
 
-    private List<Proxy> proxyList = new ArrayList<>();//代理列表
+    private List<Proxy> proxyList;//代理列表
     private int proxyIndex = 0;//代理索引
 
     public ProxyChain(Class<?> targetClass, Object targetObject, Method targetMethod, MethodProxy methodProxy, Object[] methodParams, List<Proxy> proxyList) {

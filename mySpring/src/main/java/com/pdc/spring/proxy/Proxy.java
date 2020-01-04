@@ -2,7 +2,6 @@ package com.pdc.spring.proxy;
 
 /**
  * 代理接口
- *
  * @author pdc
  */
 public interface Proxy {

@@ -8,7 +8,6 @@ import java.lang.annotation.Target;
 
 /**
  * 切面注解
- *
  * @author pdc
  */
 @Target(ElementType.TYPE)//类, 接口 (包括注解类型), 枚举
@@ -16,7 +15,7 @@ import java.lang.annotation.Target;
 public @interface Aspect {
 
     /**
-     * 注解
+     * 注解，表示要在哪个注解上使用切面
      */
     Class<? extends Annotation> value();
 }

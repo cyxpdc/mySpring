@@ -16,12 +16,7 @@ public class TransactionProxy implements Proxy {
     /**
      * 保证同一线程中事务控制相关逻辑只会执行一次
      */
-    private static final ThreadLocal<Boolean> FLAG_HOLDER = new ThreadLocal<Boolean>() {
-        @Override
-        protected Boolean initialValue() {
-            return false;
-        }
-    };
+    private static final ThreadLocal<Boolean> FLAG_HOLDER = ThreadLocal.withInitial(() -> false);
 
     @Override
     public Object doProxy(ProxyChain proxyChain) throws Throwable {

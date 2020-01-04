@@ -19,7 +19,6 @@ import com.pdc.spring.proxy.TransactionProxy;
 
 /**
  * 方法拦截助手类
- *
  * @author pdc
  */
 public final class AopHelper {
@@ -30,7 +29,7 @@ public final class AopHelper {
         try {
             //获取代理类：目标类集合的map
             Map<Class<?>, Set<Class<?>>> proxyMap = createProxyclassTargetMap();
-            //获取目标类：代理对象列表的map
+            //通过proxyMap获取目标类：代理对象列表的map
             Map<Class<?>, List<Proxy>> targetMap = createTargetProxylistMap(proxyMap);
             //遍历targetMap，将该代理对象放入BeanMap中
             for (Map.Entry<Class<?>, List<Proxy>> targetEntry : targetMap.entrySet()) {
@@ -65,10 +64,9 @@ public final class AopHelper {
      * @param proxyMap
      * @throws Exception
      */
-    private static void addAspectProxy(Map<Class<?>, Set<Class<?>>> proxyMap) throws Exception {
-        //得到扩展AspectProxy的类
-        Set<Class<?>> proxyClassSet = ClassHelper.getClassSetBySuper(AspectProxy.class);
-        for (Class<?> proxyClass : proxyClassSet) {
+    private static void addAspectProxy(Map<Class<?>, Set<Class<?>>> proxyMap){
+        //遍历扩展AspectProxy的类，即切面类
+        for (Class<?> proxyClass : ClassHelper.getClassSetBySuper(AspectProxy.class)) {
             if (proxyClass.isAnnotationPresent(Aspect.class)) {//如果带有@Aspect
                 Aspect aspect = proxyClass.getAnnotation(Aspect.class);
                 Set<Class<?>> targetClassSet = createTargetClassSet(aspect);//得到该切面对应的注解类集合
@@ -90,8 +88,8 @@ public final class AopHelper {
      * @return
      * @throws Exception
      */
-    private static Set<Class<?>> createTargetClassSet(Aspect aspect) throws Exception {
-        Set<Class<?>> targetClassSet = new HashSet<Class<?>>();
+    private static Set<Class<?>> createTargetClassSet(Aspect aspect){
+        Set<Class<?>> targetClassSet = new HashSet<>();
         Class<? extends Annotation> annotation = aspect.value();//该注解对应的类，如Controller
         if (annotation != null && !annotation.equals(Aspect.class)) {
             targetClassSet.addAll(ClassHelper.getClassSetByAnnotation(annotation));
@@ -107,17 +105,17 @@ public final class AopHelper {
      * @throws Exception
      */
     private static Map<Class<?>, List<Proxy>> createTargetProxylistMap(Map<Class<?>, Set<Class<?>>> proxyMap) throws Exception {
-        Map<Class<?>, List<Proxy>> targetMap = new HashMap<Class<?>, List<Proxy>>();
+        Map<Class<?>, List<Proxy>> targetMap = new HashMap<>();
         for (Map.Entry<Class<?>, Set<Class<?>>> proxyEntry : proxyMap.entrySet()) {
-            //代理类,如chapter5的ControllerAspect，和security工程的AuthzAnnotationAspect
+            //代理类,如test5的ControllerAspect，和security工程的AuthzAnnotationAspect
             Class<?> proxyClass = proxyEntry.getKey();
             Set<Class<?>> targetClassSet = proxyEntry.getValue();//目标类集合，如所有Controller
             for (Class<?> targetClass : targetClassSet) {
-                Proxy proxy = (Proxy) proxyClass.newInstance();//获取代理类实例
-                if (targetMap.containsKey(targetClass)) {//如果包含这个目标类
+                Proxy proxy = (Proxy) proxyClass.newInstance();
+                if (targetMap.containsKey(targetClass)) {//如果包含这个目标类，则添加代理类
                     targetMap.get(targetClass).add(proxy);
-                } else {//如果不包含这个目标类
-                    List<Proxy> proxyList = new ArrayList<Proxy>();
+                } else {//如果不包含这个目标类，则创建，再添加代理类
+                    List<Proxy> proxyList = new ArrayList<>();
                     proxyList.add(proxy);
                     targetMap.put(targetClass, proxyList);
                 }

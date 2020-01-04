@@ -3,8 +3,8 @@ package com.pdc.spring.proxy;
 import java.lang.reflect.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.pdc.spring.advisor.Advisor;
-import com.pdc.spring.advisor.impl.DefaultAdvisor;
+import com.pdc.spring.advisor.Advice;
+import com.pdc.spring.advisor.impl.DefaultAdvice;
 
 /**
  * 切面代理，即代理对象
@@ -15,13 +15,8 @@ public abstract class AspectProxy implements Proxy {
 
     private static final Logger logger = LoggerFactory.getLogger(AspectProxy.class);
 
-    private Advisor advisor = new DefaultAdvisor();
-    /**
-     * 执行链式代理
-     * @param proxyChain
-     * @return
-     * @throws Throwable
-     */
+    private Advice advice = new DefaultAdvice();
+
     @Override
     public final Object doProxy(ProxyChain proxyChain) throws Throwable {
         Object result = null;
@@ -33,7 +28,7 @@ public abstract class AspectProxy implements Proxy {
         begin();
         //调用框架
         try {
-            if (advisor.intercept(cls, method, params)) {
+            if (advice.intercept(cls, method, params)) {
                 before(cls, method, params);
                 result = proxyChain.doProxyChain();//执行代理和目标对象
                 after(cls, method, params, result);
@@ -51,22 +46,22 @@ public abstract class AspectProxy implements Proxy {
     }
 
     public void begin() {
-        advisor.begin();
+        advice.begin();
     }
 
     public void before(Class<?> cls, Method method, Object[] params) throws Throwable {
-        advisor.before(cls, method, params);
+        advice.before(cls, method, params);
     }
 
     public void after(Class<?> cls, Method method, Object[] params, Object result) throws Throwable {
-        advisor.after(cls, method, params);
+        advice.after(cls, method, params);
     }
 
     public void error(Class<?> cls, Method method, Object[] params, Throwable e) {
-        advisor.error(cls, method, params,e);
+        advice.error(cls, method, params,e);
     }
 
     public void end() {
-        advisor.end();
+        advice.end();
     }
 }
