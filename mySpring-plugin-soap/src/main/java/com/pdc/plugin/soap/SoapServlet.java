@@ -14,9 +14,7 @@ import com.pdc.spring.util.StringUtil;
 /**
  * SOAP Servlet
  * 拦截所有的SOAP请求，该请求路径的前缀就是SoapConstant.SERVLET_URL = "/soap/*";
- *
  * @author pdc
- * @since 1.0.0
  */
 @WebServlet(urlPatterns = SoapConstant.SERVLET_URL, loadOnStartup = 0)
 public class SoapServlet extends CXFNonSpringServlet {

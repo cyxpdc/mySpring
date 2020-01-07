@@ -2,9 +2,7 @@ package test;
 
 /**
  * 客户 SOAP 服务接口
- *
  * @author pdc
- * @since 1.0.0
  */
 public interface CustomerSoapService {
 

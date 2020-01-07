@@ -2,9 +2,7 @@ package com.pdc.plugin.rest;
 
 /**
  * REST 插件常量
- *
  * @author pdc
- * @since 1.0.0
  */
 public interface RestConstant {
 

@@ -11,9 +11,7 @@ import org.apache.cxf.message.Message;
 
 /**
  * SOAP 助手类
- *
  * @author pdc
- * @since 1.0.0
  */
 public class SoapHelper {
 

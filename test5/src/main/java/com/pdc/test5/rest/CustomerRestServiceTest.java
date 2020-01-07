@@ -1,13 +1,13 @@
-package com.pdc.plugin.rest.test;
+package com.pdc.test5.rest;
 
 import com.pdc.plugin.rest.RestHelper;
+import com.pdc.test5.model.Customer;
+import org.testng.Assert;
 
 
 /**
  * 客户 REST 服务单元测试
- *
  * @author pdc
- * @since 1.0.0
  */
 public class CustomerRestServiceTest {
 
@@ -17,6 +17,6 @@ public class CustomerRestServiceTest {
         String wadl = "http://localhost:8080/rest/CustomerRestService";
         CustomerRestService customerRestService = RestHelper.createClient(wadl, CustomerRestService.class);
         Customer customer = customerRestService.getCustomer(1);
-        //Assert.assertNotNull(customer);
+        Assert.assertNotNull(customer);
     }
 }

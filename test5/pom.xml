@@ -47,6 +47,12 @@
             <artifactId>mySpring-plugin-rest</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13-beta-3</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

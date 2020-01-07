@@ -4,9 +4,7 @@ import com.pdc.spring.helper.ConfigHelper;
 
 /**
  * 从配置文件smart.properties中获取相关属性
- *
  * @author pdc
- * @since 1.0.0
  */
 public class SoapConfig {
 

@@ -7,9 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * REST 服务注解
- *
  * @author pdc
- * @since 1.0.0
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

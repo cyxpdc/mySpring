@@ -18,9 +18,7 @@ import com.pdc.spring.helper.BeanHelper;
 
 /**
  * REST 助手类
- *
  * @author pdc
- * @since 1.0.0
  */
 public class RestHelper {
 

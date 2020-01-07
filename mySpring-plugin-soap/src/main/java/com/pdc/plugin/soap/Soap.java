@@ -7,11 +7,8 @@ import java.lang.annotation.Target;
 
 /**
  * SOAP 服务注解
- * todo 可以为此注解扩展一个Class属性，用于指定具体的SOAP服务接口类
  * 这样，如果某实现类实现了多个接口，就不用在SoapServelt里面写死为第一个接口
- *
  * @author pdc
- * @since 1.0.0
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

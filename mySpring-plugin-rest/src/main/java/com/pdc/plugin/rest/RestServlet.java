@@ -12,9 +12,7 @@ import com.pdc.spring.util.StringUtil;
 
 /**
  * REST Servlet
- *
  * @author pdc
- * @since 1.0.0
  */
 @WebServlet(urlPatterns = RestConstant.SERVLET_URL, loadOnStartup = 0)
 public class RestServlet extends CXFNonSpringServlet {

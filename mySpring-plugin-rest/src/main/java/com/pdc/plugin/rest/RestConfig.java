@@ -7,9 +7,7 @@ import com.pdc.spring.util.StringUtil;
 
 /**
  * 从配置文件中获取相关属性
- *
  * @author pdc
- * @since 1.0.0
  */
 public class RestConfig {
 
