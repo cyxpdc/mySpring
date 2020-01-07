@@ -34,7 +34,9 @@ BeanHelper：利用ClassHelper(getBeanClassSet())和ReflutionUtil(newInstance())
 实现依赖注入最简单的思路(无接口单实现类)：
 IocHelper：封装beanMap，这样应用程序启动时，就能自动完成依赖注入
 
+实现策略模式，即应用程序的Controller和Service可以使用接口+实现类的方式来写代码：新增加@Inject2Name注解，然后在IocHelper中获取有@Inject2Name的bean，获取其name，然后从BEAN_MAP取出对应的实例，进行初始化即可，这样的话，如果要用接口，则用@Inject2Name注解，如果不用，则直接用@Inject注解即可
 
+逻辑在IocHelper中
 
 #### 核心2：请求转发器
 
@@ -67,11 +69,7 @@ handler：封装Action的Controller类和要响应的方法controllerClass, meth
 DispatcherServlet：转发器，继承HttpServlet；
 核心方法：service()，负责转发请求
 
-> 流程：获取请求方法和请求路径，根据请求方法和请求路径获得Handler，根据Handler获取controllerClass
->
-> 类名，根据controllerClass类名获取其实例；然后创建请求参数，根据Handler调用真正的Action方法(反
->
-> 射)，返回JSP页面或返回数据对象
+> 流程：获取请求方法和请求路径，根据请求方法和请求路径映射的map获得Handler，根据Handler获取controllerClass类名，根据controllerClass类名和BeanHelper获取其实例；然后创建请求参数Param，根据Handler调用真正的Action方法(反射)
 
 
 
@@ -128,7 +126,15 @@ AOPHelper：proxyMap添加事务管理addTransactionProxy方法，存放事务�
 
 1.提供配置文件smart-security.ini，描述登录请求路径是什么，哪些请求路径可以匿名访问，哪些请求路径必须通过身份认证才能访问。这个配置文件的本质就是Shiro所需要的配置文件，不过为了不让开发者知道底层实现而已，方便开发者使用
 
-![1554170899710](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1554170899710.png)
+```ini
+[main]
+authc.loginUrl = /login
+
+[urls]
+/ = anon
+/login = aono
+/customer/** = authc
+```
 
 因此，我们需要识别配置文件，且实现Shiro提供的相关安全控制接口，将实现类配置在smart.properties，由Shiro来读取这些配置项
 
@@ -242,7 +248,7 @@ AuthzAnnotationAspect切面类：**作为Controller的代理对象之一，在�
 
 > 流程：使用者在controller层的类或方法上打上这些注解，DispatcherServlet到controller层时，执行代理，AuthzAnnotationAspect为代理对象之一，执行before方法来判断是否有相关注解来做相应处理
 
-#### 插件：SOAP服务：mySpring-plugin-soap
+#### 插件之SOAP服务：mySpring-plugin-soap
 
 使用者：
 1.定义测试接口及其实现类，实现类需要加上@Soap、@Service，表示该类需要发布为SOAP服务，@Service表示该类需要注入到IOC容器；注入一个自己编写的如Service对象，使用其方法即可；如CustomerSoapService和CustomerSoapServiceImpl
@@ -267,7 +273,7 @@ SoapServlet：拦截所有的SOAP请求，发布ws服务
 
 
 
-#### 插件：REST服务：mySpring-plugin-rest
+#### 插件之REST服务：mySpring-plugin-rest
 
 使用者：
 1.定义服务：比SOAP服务简单，不需要定义一个接口，只需要定义类及其方法即可，使用JAX-RS API，打上@Rest、@Service、@Consumes(定义输入的数据类型)、@Produces(定义输出的数据类型)，方法则打上@Get、@Post等注解；如CustomerRestService
@@ -277,7 +283,7 @@ SoapServlet：拦截所有的SOAP请求，发布ws服务
 
 类简介：
 
-@Rest：打上此注解的类表示需要发布为REST服务’
+@Rest：打上此注解的类表示需要发布为REST服务
 
 RestHelper：类似SoapHelper，额外支持了JSONP与CORS
 
