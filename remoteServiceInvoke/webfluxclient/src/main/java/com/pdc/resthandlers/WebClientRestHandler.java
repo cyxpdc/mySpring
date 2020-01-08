@@ -39,11 +39,9 @@ public class WebClientRestHandler implements RestHandler {
 				.method(methodInfo.getMethod())
 				// 请求url 和 参数
 				.uri(methodInfo.getUrl(), methodInfo.getParams())
-				//
 				.accept(MediaType.APPLICATION_JSON);
 		//使请求可以增加判断
 		ResponseSpec retrieve = null;
-
 		// 判断是否带了body,如RequestBody
 		if (methodInfo.getBody() != null) {
 			// 发出请求
@@ -53,19 +51,15 @@ public class WebClientRestHandler implements RestHandler {
 		} else {
 			retrieve = request.retrieve();
 		}
-
 		// 处理异常
 		retrieve.onStatus(status -> status.value() == 404,
 				response -> Mono.just(new RuntimeException("Not Found")));
-
 		// 处理body
 		if (methodInfo.isReturnFlux()) {
 			result = retrieve.bodyToFlux(methodInfo.getReturnElementType());
 		} else {
 			result = retrieve.bodyToMono(methodInfo.getReturnElementType());
 		}
-
 		return result;
 	}
-
 }

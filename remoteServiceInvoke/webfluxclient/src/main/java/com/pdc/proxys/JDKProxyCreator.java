@@ -29,16 +29,14 @@ import reactor.core.publisher.Mono;
 
 /**
  * 使用jdk动态代理实现代理类
- * 
  * @author pdc
- *
  */
 @Slf4j
 public class JDKProxyCreator implements ProxyCreator {
 
 	@Override
 	public Object createProxy(Class<?> type) {
-		log.info("到达createProxy方法:" + type);
+		log.info("到达createProxy方法:" + type);//测试类为IUserApi
 		// 根据接口得到API服务器信息，即url
 		ServerInfo serverInfo = extractServerInfo(type);
 		log.info("创建serverInfo:" + serverInfo);
@@ -58,11 +56,8 @@ public class JDKProxyCreator implements ProxyCreator {
 	 */
 	private ServerInfo extractServerInfo(Class<?> type) {
 		ServerInfo serverInfo = new ServerInfo();
-
 		ApiServer anno = type.getAnnotation(ApiServer.class);
-
 		serverInfo.setUrl(anno.value());
-
 		return serverInfo;
 	}
 
@@ -75,7 +70,6 @@ public class JDKProxyCreator implements ProxyCreator {
 	private Object newProxyInstance(Class<?> type, RestHandler handler) {
 		return Proxy.newProxyInstance(this.getClass().getClassLoader(),
 				new Class[] { type }, new InvocationHandler() {
-
 					@Override
 					public Object invoke(Object proxy, Method method,
 							Object[] args) throws Throwable {
@@ -98,14 +92,10 @@ public class JDKProxyCreator implements ProxyCreator {
 	private MethodInfo extractMethodInfo(Method method,
 										 Object[] args) {
 		MethodInfo methodInfo = new MethodInfo();
-
 		extractUrlAndMethod(method, methodInfo);
-
 		extractRequestParamAndBody(method, args, methodInfo);
-
 		// 提取返回对象信息
 		extractReturnInfo(method, methodInfo);
-
 		return methodInfo;
 	}
 
@@ -119,26 +109,22 @@ public class JDKProxyCreator implements ProxyCreator {
 									 MethodInfo methodInfo) {
 		// 得到请求URL和请求方法
 		Annotation[] annotations = method.getAnnotations();
-
 		for (Annotation annotation : annotations) {
 			// GET
 			if (annotation instanceof GetMapping) {
 				GetMapping a = (GetMapping) annotation;
-
 				methodInfo.setUrl(a.value()[0]);
 				methodInfo.setMethod(HttpMethod.GET);
 			}
 			// POST
 			else if (annotation instanceof PostMapping) {
 				PostMapping a = (PostMapping) annotation;
-
 				methodInfo.setUrl(a.value()[0]);
 				methodInfo.setMethod(HttpMethod.POST);
 			}
 			// DELETE
 			else if (annotation instanceof DeleteMapping) {
 				DeleteMapping a = (DeleteMapping) annotation;
-
 				methodInfo.setUrl(a.value()[0]);
 				methodInfo.setMethod(HttpMethod.DELETE);
 			}
@@ -147,7 +133,6 @@ public class JDKProxyCreator implements ProxyCreator {
 
 	/**
 	 * 得到请求的param和body
-	 *
 	 * @param method
 	 * @param args
 	 * @param methodInfo
@@ -156,7 +141,6 @@ public class JDKProxyCreator implements ProxyCreator {
 											Object[] args, MethodInfo methodInfo) {
 		// 得到调用的参数和body
 		Parameter[] parameters = method.getParameters();
-
 		// 参数和值对应的map
 		Map<String, Object> params = new LinkedHashMap<>();
 		for (int i = 0; i < parameters.length; i++) {
@@ -180,7 +164,6 @@ public class JDKProxyCreator implements ProxyCreator {
 
 	/**
 	 * 提取返回对象信息
-	 *
 	 * @param method
 	 * @param methodInfo
 	 */
@@ -192,7 +175,6 @@ public class JDKProxyCreator implements ProxyCreator {
 		boolean isFlux = method.getReturnType()
 				.isAssignableFrom(Flux.class);
 		methodInfo.setReturnFlux(isFlux);
-
 		// 得到返回对象的实际类型
 		Class<?> elementType = extractElementType(method.getGenericReturnType());
 		methodInfo.setReturnElementType(elementType);
@@ -208,7 +190,6 @@ public class JDKProxyCreator implements ProxyCreator {
 			Type genericReturnType) {
 		Type[] actualTypeArguments = ((ParameterizedType) genericReturnType)
 				.getActualTypeArguments();
-
 		return (Class<?>) actualTypeArguments[0];
 	}
 }

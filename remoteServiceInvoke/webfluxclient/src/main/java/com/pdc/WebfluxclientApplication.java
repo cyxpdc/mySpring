@@ -25,9 +25,15 @@ public class WebfluxclientApplication {
 	 */
 	@Bean
 	public ProxyCreator jdkProxyCreator() {
-		return  new JDKProxyCreator();
+		return new JDKProxyCreator();
 	}
 
+	/**
+	 * 会自动查询已经注册了的bean中是否有ProxyCreator的实现类
+	 * 如果有ProxyCreator的多个实现类，则需要使用@Qualifier指定方法
+	 * @param proxyCreator
+	 * @return
+	 */
 	@Bean
 	FactoryBean<IUserApi> userApi(ProxyCreator proxyCreator) {
 		return new FactoryBean<IUserApi>() {

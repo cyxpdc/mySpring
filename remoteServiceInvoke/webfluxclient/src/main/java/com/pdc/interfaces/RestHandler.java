@@ -5,9 +5,7 @@ import com.pdc.beans.ServerInfo;
 
 /**
  * rest请求调用handler
- * 
  * @author pdc
- *
  */
 public interface RestHandler {
 
@@ -25,5 +23,4 @@ public interface RestHandler {
 	 * @return
 	 */
 	Object invokeRest(MethodInfo methodInfo);
-
 }

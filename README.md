@@ -323,13 +323,15 @@ RestServlet：类似SoapServlet
 
 流程：通过JDK动态代理生成代理类，此代理类获取API信息，交给InvokeHandler去处理请求，然后将结果返回给调用此方法的业务代码即可
 
+
+
 > 类简介：
 
 1.WebfluxclientApplication：使用FactoryBean实现注册userApi
 
 2.ProxyCreator：创建代理类的接口。技巧：可能为JDK动态代理或CGlib，定义此接口达到扩展性
 
-3.JDKProxyCreator：JDK动态代理创建代理类。需要创建ServerInfo类和MethodInfo类，然后使用Handler获取接口代理对象
+3.JDKProxyCreator：JDK动态代理创建代理类。需要创建ServerInfo类和MethodInfo类，然后使用WebClientRestHandler获取接口代理对象；一个代理类对应一个WebClientRestHandler
 
 4.ServerInfo：封装API服务器信息
 
@@ -337,7 +339,7 @@ RestServlet：类似SoapServlet
 
 6.RestHandler：调用rest。技巧：可能用webClient，可能用RestTemplate，定义此接口达到扩展性
 
-7.WebClientRestHandler：组合了ServerInfo，在内部就将其初始化，这样handler.invokeRest(methodInfo);即可，不用传ServerInfo，因为ServerInfo不会改变，这样就不用每次创建代理类都初始化，节约资源时间
+7.WebClientRestHandler：真正地调用。此处传入了ServerInfo，在内部就将WebClient初始化，这样handler.invokeRest(methodInfo);即可，不用传ServerInfo，因为ServerInfo不会改变，这样就不用每次创建代理类都初始化，节约资源时间
 
 8.@ApiServer：用来定义服务器
 
