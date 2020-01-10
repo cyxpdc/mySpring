@@ -1,18 +1,26 @@
 package com.pdc.spring.helper;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.pdc.spring.annotation.Controller;
 import com.pdc.spring.annotation.Service;
+import com.pdc.spring.bean.FactoryBean;
 import com.pdc.spring.util.ClassUtil;
+import com.pdc.spring.util.ReflectionUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 类操作助手类，封装ClassUtil
  * @author pdc
  */
 public final class ClassHelper {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClassHelper.class);
 
     /**
      * 定义类集合（用于存放所加载的类）
@@ -63,12 +71,32 @@ public final class ClassHelper {
 
     /**
      * 获取应用包名下所有 Bean 类（包括：Service、Controller 等）
+     * 添加：FactoryBean https://blog.csdn.net/zknxx/article/details/79572387
      */
     public static Set<Class<?>> getBeanClassSet() {
         Set<Class<?>> beanClassSet = new HashSet<>();
         beanClassSet.addAll(getServiceClassSet());
         beanClassSet.addAll(getControllerClassSet());
+        beanClassSet.addAll(getFactoryBeanClassSet());
         return beanClassSet;
+    }
+
+    /**
+     * https://blog.csdn.net/zknxx/article/details/79572387
+     * @return
+     */
+    private static Set<Class<?>> getFactoryBeanClassSet() {
+        Set<Class<?>> factoryBeanClassSet = new HashSet<>();
+        Set<Class<?>> classSet = getClassSetBySuper(FactoryBean.class);
+        for(Class<?> cls : classSet){
+            try {
+                Class<?> beanName = (Class<?>) ReflectionUtil.invokeMethod(ReflectionUtil.newInstance(cls),cls.getMethod("getObjectType"));
+                classSet.add(beanName);
+            } catch (NoSuchMethodException e) {
+                LOGGER.error("getFactoryBean failure：" + e);
+            }
+        }
+        return factoryBeanClassSet;
     }
 
     /**

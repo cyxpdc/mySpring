@@ -2,6 +2,8 @@ package com.pdc.test3.controller;
 
 import java.util.List;
 import java.util.Map;
+
+import com.pdc.test3.factoryBean.FactoryBeanService;
 import com.pdc.test3.model.Customer;
 import com.pdc.test3.service.CustomerService;
 import com.pdc.spring.annotation.Action;
@@ -19,12 +21,15 @@ public class CustomerController {
 
     @Inject
     private CustomerService customerService;
+    @Inject
+    private FactoryBeanService factoryBeanService;
 
     /**
      * 进入 客户列表 界面
      */
     @Action("get:/customer")
     public View index(Param param) {
+        factoryBeanService.test();
         List<Customer> customerList = customerService.getCustomerList();
         return new View("customer.jsp").addModel("customerList", customerList);
     }

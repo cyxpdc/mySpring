@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 /**
+ * FactoryBean原理：https://blog.csdn.net/zknxx/article/details/79572387
  * @author pdc
  */
 @SpringBootApplication
