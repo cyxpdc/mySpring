@@ -36,7 +36,11 @@ IocHelper：封装beanMap，这样应用程序启动时，就能自动完成依�
 
 实现策略模式，即应用程序的Controller和Service可以使用接口+实现类的方式来写代码：新增加@Inject2Name注解，然后在IocHelper中获取有@Inject2Name的bean，获取其name，然后从BEAN_MAP取出对应的实例，进行初始化即可，这样的话，如果要用接口，则用@Inject2Name注解，如果不用，则直接用@Inject注解即可
 
-逻辑在IocHelper中
+增加了FactoryBean，其逻辑在ClassHelper#getFactoryBeanClassSet中，也就是得到扩展FactoryBean接口的类，然后遍历，调用每个类的getObjectType方法得到真正的bean，然后创建实例，添加到beanMap即可；使用者直接实现FactoryBean接口，就可以通过@Inject注解来使用了，案例在test3的com.pdc.test3.factory和controller.CustomerController#index
+
+Spring的factoryBean：即使我们已经创建出来了对象的实例，还是要走一个方法再去处理下，这里就是对FactoryBean的处理，因为它可以产生对象，所以你getBean的时候取到的不是它本身，而是通过它生成的产品 https://www.cnblogs.com/PengChengLi/p/9233938.html
+
+循环依赖：通过newInstance先创建出所有的bean实例，然后在IocHelper里进行注入；而Spring是创建所有bean的时候顺便注入：https://mp.weixin.qq.com/s/y-lj_PULYP536gurSQyyIw
 
 #### 核心2：请求转发器
 
