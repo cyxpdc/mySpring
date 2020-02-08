@@ -25,10 +25,8 @@ public class SoapHelper {
      */
     static {
         if (SoapConfig.isLog()) {
-            LoggingInInterceptor loggingInInterceptor = new LoggingInInterceptor();
-            inInterceptorList.add(loggingInInterceptor);
-            LoggingOutInterceptor loggingOutInterceptor = new LoggingOutInterceptor();
-            outInterceptorList.add(loggingOutInterceptor);
+            inInterceptorList.add(new LoggingInInterceptor());
+            outInterceptorList.add(new LoggingOutInterceptor());
         }
     }
 

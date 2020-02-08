@@ -26,8 +26,8 @@ public final class StreamUtil {
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }
-        } catch (Exception e) {
-            LOGGER.error("get string failure", e);
+        } catch (IOException e) {
+            LOGGER.error("getStringInfo() failure", e);
             throw new RuntimeException(e);
         } finally {
             try {
@@ -51,7 +51,7 @@ public final class StreamUtil {
                 outputStream.write(buffer, 0, length);
             }
             outputStream.flush();
-        } catch (Exception e) {
+        } catch (IOException e) {
             LOGGER.error("copy stream failure", e);
             throw new RuntimeException(e);
         } finally {

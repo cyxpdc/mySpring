@@ -34,7 +34,7 @@ public class AuthzAnnotationAspect extends AspectProxy {
         // 从目标类与目标方法中获取相应的注解
         Annotation annotation = getAnnotation(cls, method);
         if (annotation != null) {
-            // 判断授权注解的类型，并做相应处理
+            // 判断授权注解的类型，并获取Subject做相应处理
             Class<?> annotationType = annotation.annotationType();
             if (annotationType.equals(Authenticated.class)) {
                 handleAuthenticated();

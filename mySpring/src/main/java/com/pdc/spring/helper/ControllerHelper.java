@@ -35,13 +35,13 @@ public final class ControllerHelper {
                             //从Action注解中获取URL映射规则
                             Action action = method.getAnnotation(Action.class);
                             String mapping = action.value();//获取请求类型与路径
-                            //匹配，如：@Action("get:/customer")
+                            //匹配，如：@Action("get:/customer")里的get:/customer
                             //+:一次或多次匹配前面的字符或子表达式
                             //*:零次或多次匹配前面的字符或子表达式
                             if (mapping.matches("\\w+:/\\w*")) {
                                 String[] array = mapping.split(":");
                                 //封装数据
-                                if (ArrayUtil.isNotEmpty(array) && array.length == 2) {
+                                if (array.length == 2) {
                                     //array[0]是requestMethod，array[1]是requestPath
                                     Request request = new Request(array[0], array[1]);
                                     Handler handler = new Handler(controllerClass, method);

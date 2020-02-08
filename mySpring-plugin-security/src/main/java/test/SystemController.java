@@ -11,6 +11,7 @@ import com.pdc.plugin.security.exception.AuthcException;
 
 /**
  * 处理系统请求
+ * @author pdc
  */
 @Controller
 public class SystemController {

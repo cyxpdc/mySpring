@@ -34,20 +34,16 @@ public class RestHelper {
         providerList.add(jsonProvider);
         // 添加 Logging Interceptor
         if (RestConfig.isLog()) {
-            LoggingInInterceptor loggingInInterceptor = new LoggingInInterceptor();
-            inInterceptorList.add(loggingInInterceptor);
-            LoggingOutInterceptor loggingOutInterceptor = new LoggingOutInterceptor();
-            outInterceptorList.add(loggingOutInterceptor);
+            inInterceptorList.add(new LoggingInInterceptor());
+            outInterceptorList.add(new LoggingOutInterceptor());
         }
         // 添加 JSONP Interceptor
         if (RestConfig.isJsonp()) {
             JsonpInInterceptor jsonpInInterceptor = new JsonpInInterceptor();
             jsonpInInterceptor.setCallbackParam(RestConfig.getJsonpFunction());
             inInterceptorList.add(jsonpInInterceptor);
-            JsonpPreStreamInterceptor jsonpPreStreamInterceptor = new JsonpPreStreamInterceptor();
-            outInterceptorList.add(jsonpPreStreamInterceptor);
-            JsonpPostStreamInterceptor jsonpPostStreamInterceptor = new JsonpPostStreamInterceptor();
-            outInterceptorList.add(jsonpPostStreamInterceptor);
+            outInterceptorList.add(new JsonpPreStreamInterceptor());
+            outInterceptorList.add(new JsonpPostStreamInterceptor());
         }
         // 添加 CORS Provider
         if (RestConfig.isCors()) {

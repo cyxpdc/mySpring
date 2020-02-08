@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 类操作工具类
- *
  * @author pdc
  */
 public final class ClassUtil {
@@ -35,7 +34,7 @@ public final class ClassUtil {
      * 为了提高加载类的性能，可将isInitialized设置为false
      */
     public static Class<?> loadClass(String className, boolean isInitialized) {
-        Class<?> cls = null;
+        Class<?> cls;
         try {
             cls = Class.forName(className, isInitialized, getClassLoader());
         } catch (ClassNotFoundException e) {
@@ -62,6 +61,7 @@ public final class ClassUtil {
     public static Set<Class<?>> getClassSet(String packageName) {
         Set<Class<?>> classSet = new HashSet<>();
         try {
+            //配置文件里的定义用.分隔
             Enumeration<URL> urls = getClassLoader().
                                     getResources(packageName.replace(".", "/"));
             while (urls.hasMoreElements()) {
@@ -69,8 +69,10 @@ public final class ClassUtil {
                 if (url != null) {
                     String protocol = url.getProtocol();//协议
                     if (protocol.equals("file")) {
-                        //得到包路径
+                        //得到包路径:/H:/mySpring/test5/target/test5-1.0.0/WEB-INF/classes/com/pdc/test5/
+                        System.out.println(url.getPath());
                         String packagePath = url.getPath().replaceAll("%20", " ");
+                        ///H:/mySpring/test5/target/test5-1.0.0/WEB-INF/classes/com/pdc/test5/
                         System.out.println(packagePath);
                         addClass(classSet, packagePath, packageName);
                     } else if (protocol.equals("jar")) {
@@ -121,11 +123,11 @@ public final class ClassUtil {
             } else {//若当前包下的内容不为文件，则递归判断其子包，直到为文件,注意要为全限定名
                 String subPackagePath = fileName;
                 if (StringUtil.isNotEmpty(packagePath)) {
-                    subPackagePath = packagePath + "/" + subPackagePath;
+                    subPackagePath = packagePath + "/" + fileName;
                 }
                 String subPackageName = fileName;
                 if (StringUtil.isNotEmpty(packageName)) {
-                    subPackageName = packageName + "." + subPackageName;
+                    subPackageName = packageName + "." + fileName;
                 }
                 addClass(classSet, subPackagePath, subPackageName);
             }

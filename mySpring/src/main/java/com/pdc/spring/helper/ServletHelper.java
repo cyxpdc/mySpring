@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Servlet 助手类
+ * Servlet 助手类,使用者可以使用此类来获取当前请求上下文
  * @author pdc
  */
 public final class ServletHelper {

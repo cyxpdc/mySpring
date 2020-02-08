@@ -73,15 +73,22 @@ public final class ConfigHelper {
     }
 
     /**
+     * 根据属性名获取 String 类型的属性值，带默认值
+     * @param key
+     * @param defaultValue
+     * @return
+     */
+    public static String getString(String key,String defaultValue) {
+        return PropsUtil.getString(CONFIG_PROPS, key, defaultValue);
+    }
+
+    /**
      * 根据属性名获取 String 类型的属性值
      */
     public static String getString(String key) {
         return PropsUtil.getString(CONFIG_PROPS, key);
     }
 
-    public static String getString(String key,String defaultValue) {
-        return PropsUtil.getString(CONFIG_PROPS, key, defaultValue);
-    }
     /**
      * 获取应用文件上传限制
      */

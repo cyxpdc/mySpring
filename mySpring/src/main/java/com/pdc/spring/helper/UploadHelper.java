@@ -118,7 +118,7 @@ public final class UploadHelper {
      * 批量上传文件
      * 即对每个参数，都调用上传单个文件方法
      */
-    public static void uploadFile(String basePath, List<FileParam> fileParamList) {
+    public static void uploadFiles(String basePath, List<FileParam> fileParamList) {
         try {
             if (CollectionUtil.isNotEmpty(fileParamList)) {
                 for (FileParam fileParam : fileParamList) {
@@ -126,7 +126,7 @@ public final class UploadHelper {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("upload file failure", e);
+            LOGGER.error("upload files failure", e);
             throw new RuntimeException(e);
         }
     }

@@ -35,24 +35,10 @@ public final class ClassHelper {
     }
 
     /**
-     * 获取应用包名下的所有类
-     */
-    public static Set<Class<?>> getClassSet() {
-        return CLASS_SET;
-    }
-
-    /**
      * 获取应用包名下所有 Service 类
      */
     public static Set<Class<?>> getServiceClassSet() {
         return getClassSetByAnnotation(Service.class);
-        /*Set<Class<?>> classSet = new HashSet<>();
-        for (Class<?> cls : CLASS_SET) {
-            if (cls.isAnnotationPresent(Service.class)) {
-                classSet.add(cls);
-            }
-        }
-        return classSet;*/
     }
 
     /**
@@ -60,13 +46,20 @@ public final class ClassHelper {
      */
     public static Set<Class<?>> getControllerClassSet() {
         return getClassSetByAnnotation(Controller.class);
-        /*Set<Class<?>> classSet = new HashSet<>();
+    }
+
+    /**
+     * 获取应用包名下带有某注解的所有类
+     * 因为需要获取带有Aspect注解的所有类
+     */
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotationClass) {
+        Set<Class<?>> classSet = new HashSet<>();
         for (Class<?> cls : CLASS_SET) {
-            if (cls.isAnnotationPresent(Controller.class)) {
+            if (cls.isAnnotationPresent(annotationClass)) {
                 classSet.add(cls);
             }
         }
-        return classSet;*/
+        return classSet;
     }
 
     /**
@@ -107,20 +100,6 @@ public final class ClassHelper {
         Set<Class<?>> classSet = new HashSet<>();
         for (Class<?> cls : CLASS_SET) {
             if (superClass.isAssignableFrom(cls) && !superClass.equals(cls)) {
-                classSet.add(cls);
-            }
-        }
-        return classSet;
-    }
-
-    /**
-     * 获取应用包名下带有某注解的所有类
-     * 因为需要获取带有Aspect注解的所有类
-     */
-    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotationClass) {
-        Set<Class<?>> classSet = new HashSet<>();
-        for (Class<?> cls : CLASS_SET) {
-            if (cls.isAnnotationPresent(annotationClass)) {
                 classSet.add(cls);
             }
         }

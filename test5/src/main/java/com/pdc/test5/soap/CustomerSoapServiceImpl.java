@@ -8,7 +8,6 @@ import com.pdc.plugin.soap.Soap;
 
 /**
  * 客户 SOAP 服务接口实现
- *
  * @author pdc
  */
 @Soap

@@ -33,17 +33,12 @@ public class Param {
     }
 
     /**
-     * 获取请求参数映射
-     * 如表单字段的键值对映射，或其他地方传来的参数
-     * 返回值为Map<String, Object>，这样就可以减少以前代码的改动
-     * 优化：不用重复创建HashMap
+     * 获取表单字段的键值对
+     * 字段：值
+     * @return
      */
-
-    private Map<String, Object> fieldMap = new HashMap<>();
-
     public Map<String, Object> getFieldMap() {
-        //Map<String, Object> fieldMap = new HashMap<>();
-        fieldMap.clear();
+        Map<String, Object> fieldMap = new HashMap<>();
         if (CollectionUtil.isNotEmpty(formParamList)) {
             for (FormParam formParam : formParamList) {
                 String fieldName = formParam.getFieldName();
@@ -58,16 +53,11 @@ public class Param {
     }
 
     /**
-     * 获取上传文件映射
-     * 一个字段名可对应多个文件，实现多文件上传的需求
-     * 优化：不用重复创建HashMap
+     * 获取上传文件映射键值对
+     * 字段：文件参数列表
      */
-
-    private Map<String, List<FileParam>> fileMap = new HashMap<>();
-
     public Map<String, List<FileParam>> getFileMap() {
-        //Map<String, List<FileParam>> fileMap = new HashMap<>();
-        fileMap.clear();
+        Map<String, List<FileParam>> fileMap = new HashMap<>();
         if (CollectionUtil.isNotEmpty(fileParamList)) {
             for (FileParam fileParam : fileParamList) {
                 String fieldName = fileParam.getFieldName();
@@ -123,32 +113,4 @@ public class Param {
         return CastUtil.castLong(getFieldMap().get(name));
     }
 
-    /**
-     * 根据参数名获取 double 型参数值
-     */
-    /*public double getDouble(String name) {
-        return CastUtil.castDouble(getFieldMap().get(name));
-    }*/
-
-    /**
-     * 根据参数名获取 int 型参数值
-     */
-    /*public int getInt(String name) {
-        return CastUtil.castInt(getFieldMap().get(name));
-    }*/
-
-    /**
-     * 根据参数名获取 boolean 型参数值
-     */
-    /*public boolean getBoolean(String name) {
-        return CastUtil.castBoolean(getFieldMap().get(name));
-    }*/
-
-    /*public long getLong(String name){
-        return CastUtil.castLong(paramMap.get(name));
-    }*/
-
-    /*public Map<String,Object> getMap(){
-        return paramMap;
-    }*/
 }

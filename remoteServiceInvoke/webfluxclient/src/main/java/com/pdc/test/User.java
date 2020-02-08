@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * 类名可以随意, 字段需要保持一致
  * 因为为json传输，不会带上类名
- * @author 晓风轻
+ * @author pdc
  *
  */
 @Data

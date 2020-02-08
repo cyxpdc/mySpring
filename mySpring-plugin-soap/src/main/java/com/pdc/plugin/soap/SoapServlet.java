@@ -1,5 +1,6 @@
 package com.pdc.plugin.soap;
 
+import java.lang.annotation.Annotation;
 import java.util.Set;
 import javax.servlet.ServletConfig;
 import javax.servlet.annotation.WebServlet;

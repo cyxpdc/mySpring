@@ -7,7 +7,6 @@ import java.util.Set;
 
 /**
  * 应用安全控制
- *
  * @author pdc
  */
 public class AppSecurity implements SmartSecurity {

@@ -1,5 +1,6 @@
 package com.pdc.spring.util;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -21,7 +22,7 @@ public final class CodecUtil {
         String target;
         try {
             target = URLEncoder.encode(source, "UTF-8");
-        } catch (Exception e) {
+        } catch (UnsupportedEncodingException e) {
             LOGGER.error("encode url failure", e);
             throw new RuntimeException(e);
         }
@@ -35,7 +36,7 @@ public final class CodecUtil {
         String target;
         try {
             target = URLDecoder.decode(source, "UTF-8");
-        } catch (Exception e) {
+        } catch (UnsupportedEncodingException e) {
             LOGGER.error("decode url failure", e);
             throw new RuntimeException(e);
         }

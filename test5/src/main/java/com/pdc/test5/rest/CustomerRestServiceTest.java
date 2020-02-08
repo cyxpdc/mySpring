@@ -2,6 +2,7 @@ package com.pdc.test5.rest;
 
 import com.pdc.plugin.rest.RestHelper;
 import com.pdc.test5.model.Customer;
+import org.junit.Test;
 import org.testng.Assert;
 
 
@@ -11,7 +12,7 @@ import org.testng.Assert;
  */
 public class CustomerRestServiceTest {
 
-    //@Test
+    @Test
     public void getCustomerTest() {
         //也可以直接浏览器输入：http://localhost:8080/rest/CustomerRestService/customer/1
         String wadl = "http://localhost:8080/rest/CustomerRestService";

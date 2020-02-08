@@ -2,9 +2,7 @@ package com.pdc.plugin.security;
 
 /**
  * 常量接口
- *
- * @author huangyong
- * @since 1.0.0
+ * @author pdc
  */
 public interface SecurityConstant {
 

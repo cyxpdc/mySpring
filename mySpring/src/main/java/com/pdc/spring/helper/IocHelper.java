@@ -9,6 +9,8 @@ import com.pdc.spring.util.ArrayUtil;
 import com.pdc.spring.util.ClassUtil;
 import com.pdc.spring.util.CollectionUtil;
 import com.pdc.spring.util.ReflectionUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 依赖注入助手类
@@ -19,6 +21,9 @@ import com.pdc.spring.util.ReflectionUtil;
  * @author pdc
  */
 public final class IocHelper {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(IocHelper.class);
+
     static {
         Map<Class<?>, Object> beanMap = BeanHelper.getBeanMap();//获取所有Bean
         if (CollectionUtil.isNotEmpty(beanMap)) {
@@ -47,8 +52,10 @@ public final class IocHelper {
 
     private static void setField(Map<Class<?>, Object> beanMap, Object beanInstance, Field beanField, Class<?> beanFieldClass) {
         Object beanFieldInstance = beanMap.get(beanFieldClass);
-        if (beanFieldInstance != null) {//如果存在这个属性对应的实例，则初始化
+        if (beanFieldInstance != null) {
             ReflectionUtil.setField(beanInstance, beanField, beanFieldInstance);
+            return ;
         }
+        LOGGER.warn("找不到类"+ beanFieldClass + "的实例");//也可以修改为异常
     }
 }

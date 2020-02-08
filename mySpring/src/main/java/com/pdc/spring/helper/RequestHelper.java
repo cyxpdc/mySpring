@@ -30,7 +30,7 @@ public final class RequestHelper {
     }
 
     /**
-     * 解析参数
+     * 解析form表单参数
      * @param request
      * @return
      */
@@ -41,7 +41,7 @@ public final class RequestHelper {
             String fieldName = paramNames.nextElement();
             String[] fieldValues = request.getParameterValues(fieldName);
             if (ArrayUtil.isNotEmpty(fieldValues)) {
-                Object fieldValue;
+                String fieldValue;
                 if (fieldValues.length == 1) {//小优化，可以减少StringBuilder对象的创建
                     fieldValue = fieldValues[0];
                 } else {
@@ -61,7 +61,7 @@ public final class RequestHelper {
     }
 
     /**
-     * 解析输入流，先通过&拆为kv对，再用=拆开kv对
+     * 解析输入流(url)，先通过&拆为kv对，再用=拆开kv对
      * @param request
      * @return
      * @throws IOException

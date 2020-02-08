@@ -44,7 +44,6 @@ public class DispatcherServlet extends HttpServlet {
         HelperLoader.init();
         //获取ServletContext对象，用于注册Servlet
         ServletContext servletContext = servletConfig.getServletContext();
-        //获取ServletContext对象，用于注册Servlet(JSP、静态资源)
         registerServlet(servletContext);
         //初始化文件上传助手
         UploadHelper.init(servletContext);
@@ -71,9 +70,6 @@ public class DispatcherServlet extends HttpServlet {
             //获取Action处理器
             Handler handler = ControllerHelper.getHandler(requestMethod, requestPath);
             if (handler != null) {
-                //获取Controller类(或代理类)及其Bean实例
-                Class<?> controllerClass = handler.getControllerClass();
-                Object controllerBean = BeanHelper.getBean(controllerClass);
                 //创建请求参数
                 //根据请求对象是否为上传文件来创建不同的param对象
                 Param param;
@@ -82,11 +78,17 @@ public class DispatcherServlet extends HttpServlet {
                 } else {
                     param = RequestHelper.createParam(request);
                 }
-                //调用真正的Action方法(或代理类),使用Object封装返回结果
+                //获取Controller类(或代理类)及其Bean实例和方法，调用真正的Action方法(或代理类),使用Object封装返回结果
                 //返回类型为View或Data
-                Object result;
+                Class<?> controllerClass = handler.getControllerClass();
+                Object controllerBean = BeanHelper.getBean(controllerClass);
                 Method actionMethod = handler.getActionMethod();
-                result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+                Object result;
+                if (param.isEmpty()) {//这里需要判断参数是否为空，否则报错IllegalArgumentException：wrong number of arguments
+                    result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
+                } else {
+                    result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+                }
                 //返回JSP页面或返回数据对象
                 if (result instanceof View) {
                     handleViewResult((View) result, request, response);//跳转到指定JSP页面
@@ -102,9 +104,9 @@ public class DispatcherServlet extends HttpServlet {
     private void handleViewResult(View view, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String path = view.getPath();
         if (StringUtil.isNotEmpty(path)) {
-            if (path.startsWith("/")) {
+            if (path.startsWith("/")) {//路径
                 response.sendRedirect(request.getContextPath() + path);//重定向
-            } else {
+            } else {//JSP+数据
                 Map<String, Object> model = view.getModel();
                 for (Map.Entry<String, Object> entry : model.entrySet()) {
                     request.setAttribute(entry.getKey(), entry.getValue());
