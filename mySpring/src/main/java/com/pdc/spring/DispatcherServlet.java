@@ -84,6 +84,7 @@ public class DispatcherServlet extends HttpServlet {
                 Object controllerBean = BeanHelper.getBean(controllerClass);
                 Method actionMethod = handler.getActionMethod();
                 Object result;
+                //todo：这里可加入拦截器
                 if (param.isEmpty()) {//这里需要判断参数是否为空，否则报错IllegalArgumentException：wrong number of arguments
                     result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
                 } else {
@@ -117,6 +118,11 @@ public class DispatcherServlet extends HttpServlet {
         }
     }
 
+    /**
+     * 默认就有了@ResponseBody的效果,即将数据转换为Json
+     * @param data
+     * @param response
+     */
     private void handleDataResult(Data data, HttpServletResponse response){
         Object model = data.getModel();
         if (model != null) {

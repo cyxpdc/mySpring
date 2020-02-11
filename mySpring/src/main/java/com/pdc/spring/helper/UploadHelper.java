@@ -34,7 +34,7 @@ public final class UploadHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadHelper.class);
     /**
-     * 文件上传对象
+     * 文件上传对象,用来解析前端传来的文件上传参数
      */
     private static ServletFileUpload servletFileUpload;
 

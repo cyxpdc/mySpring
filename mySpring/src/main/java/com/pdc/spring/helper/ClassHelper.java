@@ -80,14 +80,8 @@ public final class ClassHelper {
      */
     private static Set<Class<?>> getFactoryBeanClassSet() {
         Set<Class<?>> factoryBeanClassSet = new HashSet<>();
-        Set<Class<?>> classSet = getClassSetBySuper(FactoryBean.class);
-        for(Class<?> cls : classSet){
-            try {
-                Class<?> beanName = (Class<?>) ReflectionUtil.invokeMethod(ReflectionUtil.newInstance(cls),cls.getMethod("getObjectType"));
-                classSet.add(beanName);
-            } catch (NoSuchMethodException e) {
-                LOGGER.error("getFactoryBean failure：" + e);
-            }
+        for(Class<?> cls : getClassSetBySuper(FactoryBean.class)){
+            factoryBeanClassSet.add(cls);
         }
         return factoryBeanClassSet;
     }

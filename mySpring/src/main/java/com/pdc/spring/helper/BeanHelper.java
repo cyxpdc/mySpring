@@ -3,13 +3,19 @@ package com.pdc.spring.helper;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import com.pdc.spring.bean.FactoryBean;
 import com.pdc.spring.util.ReflectionUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Bean容器
  * @author pdc
  */
 public final class BeanHelper {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BeanHelper.class);
     /**
      * 保存所有bean实例
      * 此处线程安全：https://www.oschina.net/question/2842581_2262826
@@ -20,7 +26,16 @@ public final class BeanHelper {
     static {//获取所有Bean实例
         Set<Class<?>> beanClassSet = ClassHelper.getBeanClassSet();
         for (Class<?> beanClass : beanClassSet) {
-            Object obj = ReflectionUtil.newInstance(beanClass);
+            Object obj = null;
+            if(beanClass.isAssignableFrom(FactoryBean.class)){
+                try {
+                    obj = ReflectionUtil.invokeMethod(ReflectionUtil.newInstance(beanClass),beanClass.getMethod("getObject"));
+                } catch (NoSuchMethodException e) {
+                    LOGGER.error("获取factorybean失败");
+                }
+            }else{
+                obj = ReflectionUtil.newInstance(beanClass);
+            }
             BEAN_MAP.put(beanClass, obj);
         }
 

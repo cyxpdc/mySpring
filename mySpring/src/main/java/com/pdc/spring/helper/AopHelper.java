@@ -28,6 +28,7 @@ public final class AopHelper {
     static {
         try {
             //获取代理类：目标类集合的map
+            //因为通过目标类无法得知代理类，只有通过代理类才能知道目标类，所以需要proxyMap
             Map<Class<?>, Set<Class<?>>> proxyMap = createProxyclassTargetMap();
             //通过proxyMap获取目标类：代理对象列表的map
             Map<Class<?>, List<Proxy>> targetMap = createTargetProxylistMap(proxyMap);
