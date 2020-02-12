@@ -45,7 +45,7 @@ public final class RequestHelper {
                 if (fieldValues.length == 1) {//小优化，可以减少StringBuilder对象的创建
                     fieldValue = fieldValues[0];
                 } else {
-                    StringBuilder sb = new StringBuilder("");
+                    StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < fieldValues.length; i++) {
                         sb.append(fieldValues[i]);
                         if (i != fieldValues.length - 1) {
