@@ -108,7 +108,7 @@ Advisor：将额外的功能委托给它，DefaultAdvisor为默认实现
 >
 > AopHelper的addAspectProxy方法中，可能有多个@Aspect(Controller.class)代理类，即proxyMap中有不同的proxyClass对应相同的targetClassSet，所以在createTargetProxylistMap方法中，对每个proxyMap键值对，需要判断是否有相同的targetClass，如果有，则需要将代理类加到其代理列表中去
 
-### 
+SpringAOP的advice：spring aop首先从IOC容器中获取Advice或者MethodInterceptor等，将其封装为Advisor（这一步主要目的是将Advice与PointCut相结合），最后在JDK Proxy和CGLIB Proxy的回调方法中应用PointCut匹配具体需要调用Advice的方法，并将Advisor中的Advice按类型封装为MethodInterceptor应用到目标方法的调用MethodInvocation上去（使用list保存MethodInterceptor，https://blog.csdn.net/john_lw/article/details/80925657），使用看https://blog.csdn.net/u010890358/article/details/80640433的前面部分
 
 #### 核心4：事务管理
 
