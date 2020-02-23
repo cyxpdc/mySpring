@@ -35,6 +35,7 @@ public final class StreamUtil {
                 isReader.close();
             } catch (IOException e) {
                 LOGGER.error("close Reader failure", e);
+                throw new RuntimeException(e);
             }
         }
         return sb.toString();

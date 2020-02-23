@@ -21,7 +21,7 @@ public final class ClassUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(ClassUtil.class);
 
     /**
-     * 获取类加载器
+     * 获取类加载器，如果使用了Tomcat，就不怕使用的是SharedClassLoader，导致加载不到类了
      * 即获取当前线程中的ClassLoader
      */
     public static ClassLoader getClassLoader() {
@@ -62,8 +62,7 @@ public final class ClassUtil {
         Set<Class<?>> classSet = new HashSet<>();
         try {
             //配置文件里的定义用.分隔
-            Enumeration<URL> urls = getClassLoader().
-                                    getResources(packageName.replace(".", "/"));
+            Enumeration<URL> urls = getClassLoader().getResources(packageName.replace(".", "/"));
             while (urls.hasMoreElements()) {
                 URL url = urls.nextElement();
                 if (url != null) {
@@ -72,7 +71,7 @@ public final class ClassUtil {
                         //得到包路径:/H:/mySpring/test5/target/test5-1.0.0/WEB-INF/classes/com/pdc/test5/
                         System.out.println(url.getPath());
                         String packagePath = url.getPath().replaceAll("%20", " ");
-                        ///H:/mySpring/test5/target/test5-1.0.0/WEB-INF/classes/com/pdc/test5/
+                        //H:/mySpring/test5/target/test5-1.0.0/WEB-INF/classes/com/pdc/test5/
                         System.out.println(packagePath);
                         addClass(classSet, packagePath, packageName);
                     } else if (protocol.equals("jar")) {
@@ -84,8 +83,8 @@ public final class ClassUtil {
                                 while (jarEntries.hasMoreElements()) {
                                     JarEntry jarEntry = jarEntries.nextElement();
                                     String jarEntryName = jarEntry.getName();
-                                    if (jarEntryName.endsWith(".class")) {//为类文件
-                                        String className = jarEntryName.//得到类路径
+                                    if (jarEntryName.endsWith(".class")) {
+                                        String className = jarEntryName.//去掉.class，得到类全限定名
                                                 substring(0, jarEntryName.lastIndexOf(".")).
                                                 replaceAll("/", ".");
                                         doAddClass(classSet, className);
@@ -105,9 +104,9 @@ public final class ClassUtil {
 
     /**
      * 添加包下的类
-     * @param classSet
-     * @param packagePath
-     * @param packageName
+     * @param classSet 用来保存所有加载到JVM的类的集合
+     * @param packagePath 用来获取路径下的文件
+     * @param packageName 需要加载的类的包名
      */
     private static void addClass(Set<Class<?>> classSet, String packagePath, String packageName) {
         //获取包下的所有.class文件或文件夹，分别处理
@@ -123,11 +122,11 @@ public final class ClassUtil {
             } else {//若当前包下的内容不为文件，则递归判断其子包，直到为文件,注意要为全限定名
                 String subPackagePath = fileName;
                 if (StringUtil.isNotEmpty(packagePath)) {
-                    subPackagePath = packagePath + "/" + fileName;
+                    subPackagePath = packagePath + "/" + subPackagePath;
                 }
                 String subPackageName = fileName;
                 if (StringUtil.isNotEmpty(packageName)) {
-                    subPackageName = packageName + "." + fileName;
+                    subPackageName = packageName + "." + subPackageName;
                 }
                 addClass(classSet, subPackagePath, subPackageName);
             }

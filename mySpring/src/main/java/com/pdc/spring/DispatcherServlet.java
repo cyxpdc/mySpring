@@ -62,7 +62,7 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ServletHelper.init(request, response);//初始化ServletHelper
+        ServletHelper.init(request, response);//初始化ServletHelper,使用者可以使用ServletHelper来获取比如session之类的信息
         try {
             //获取请求方法和请求路径
             String requestMethod = request.getMethod().toLowerCase();
@@ -84,7 +84,7 @@ public class DispatcherServlet extends HttpServlet {
                 Object controllerBean = BeanHelper.getBean(controllerClass);
                 Method actionMethod = handler.getActionMethod();
                 Object result;
-                //todo：这里可加入拦截器
+                //todo：这里可加入拦截器，各位可按需添加
                 if (param.isEmpty()) {//这里需要判断参数是否为空，否则报错IllegalArgumentException：wrong number of arguments
                     result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
                 } else {
@@ -119,7 +119,7 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     /**
-     * 默认就有了@ResponseBody的效果,即将数据转换为Json
+     * 此方法有@ResponseBody的效果,即将数据转换为Json，因此使用者不需要加，当然这样可能就有点被局限了，也可以抽取个注解出来，不难
      * @param data
      * @param response
      */

@@ -40,8 +40,8 @@ public final class AopHelper {
                 Object proxy = ProxyManager.createProxy(targetClass, proxyList);
                 BeanHelper.setBean(targetClass, proxy);
             }
-        } catch (Exception e) {
-            LOGGER.error("aop failure", e);
+        } catch (IllegalAccessException | InstantiationException e) {
+            LOGGER.error("AOP createTargetProxylistMap() failure", e);
         }
     }
 
@@ -50,7 +50,7 @@ public final class AopHelper {
      * @return
      * @throws Exception
      */
-    private static Map<Class<?>, Set<Class<?>>> createProxyclassTargetMap() throws Exception {
+    private static Map<Class<?>, Set<Class<?>>> createProxyclassTargetMap() {
         Map<Class<?>, Set<Class<?>>> proxyMap = new HashMap<>();
         addAspectProxy(proxyMap);
         addTransactionProxy(proxyMap);//TransactionProxy：Service
@@ -105,7 +105,7 @@ public final class AopHelper {
      * @return
      * @throws Exception
      */
-    private static Map<Class<?>, List<Proxy>> createTargetProxylistMap(Map<Class<?>, Set<Class<?>>> proxyMap) throws Exception {
+    private static Map<Class<?>, List<Proxy>> createTargetProxylistMap(Map<Class<?>, Set<Class<?>>> proxyMap) throws IllegalAccessException, InstantiationException {
         Map<Class<?>, List<Proxy>> targetMap = new HashMap<>();
         for (Map.Entry<Class<?>, Set<Class<?>>> proxyEntry : proxyMap.entrySet()) {
             //代理类,如test5的ControllerAspect，和security工程的AuthzAnnotationAspect

@@ -36,6 +36,7 @@ public final class ControllerHelper {
                             Action action = method.getAnnotation(Action.class);
                             String mapping = action.value();//获取请求类型与路径
                             //匹配，如：@Action("get:/customer")里的get:/customer
+                            //w匹配字母、数字、下划线。等价于'[A-Za-z0-9_]'
                             //+:一次或多次匹配前面的字符或子表达式
                             //*:零次或多次匹配前面的字符或子表达式
                             if (mapping.matches("\\w+:/\\w*")) {

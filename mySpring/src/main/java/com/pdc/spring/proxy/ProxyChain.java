@@ -14,7 +14,7 @@ import net.sf.cglib.proxy.MethodProxy;
 public class ProxyChain {
 
     private final Class<?> targetClass;//目标类
-    private final Object targetObject;//目标对象
+    private final Object targetObject;//目标对象，加上targetMethod可用来完成Spring的通知功能
     private final Method targetMethod;//目标方法
     private final MethodProxy methodProxy;//方法代理
     private final Object[] methodParams;//方法参数

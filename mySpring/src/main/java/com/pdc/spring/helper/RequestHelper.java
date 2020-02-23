@@ -21,16 +21,18 @@ public final class RequestHelper {
 
     /**
      * 创建请求对象
+     * 可以不需要创建两个parse方法内部的List<FormParam>：改造方法，将一个formParamList传进去即可
      */
     public static Param createParam(HttpServletRequest request) throws IOException {
         List<FormParam> formParamList = new ArrayList<>();
+        //为什么要使用inputstream：https://blog.csdn.net/cxfly957/article/details/78785498?utm_source=blogxgwz0
         formParamList.addAll(parseParameterNames(request));//解析参数
         formParamList.addAll(parseInputStream(request));//解析输入流
         return new Param(formParamList);
     }
 
     /**
-     * 解析form表单参数
+     * 解析请求体中参数
      * @param request
      * @return
      */

@@ -31,7 +31,7 @@ public final class IocHelper {
             for (Map.Entry<Class<?>, Object> beanEntry : beanMap.entrySet()) {
                 Class<?> beanClass = beanEntry.getKey();//类名
                 Object beanInstance = beanEntry.getValue();//当前类名对应的实例
-                Field[] beanFields = beanClass.getDeclaredFields();//其所有属性
+                Field[] beanFields = beanClass.getDeclaredFields();//当前类名的所有属性，需要进行注入
                 if (ArrayUtil.isNotEmpty(beanFields)) {
                     //遍历当前Bean的所有属性
                     for (Field beanField : beanFields) {
@@ -56,6 +56,6 @@ public final class IocHelper {
             ReflectionUtil.setField(beanInstance, beanField, beanFieldInstance);
             return ;
         }
-        LOGGER.warn("找不到类"+ beanFieldClass + "的实例");//也可以修改为异常
+        LOGGER.warn("Can not find "+ beanFieldClass + "'s instance");//也可以修改为异常
     }
 }

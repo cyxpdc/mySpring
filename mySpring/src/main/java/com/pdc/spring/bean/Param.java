@@ -75,7 +75,7 @@ public class Param {
     }
 
     /**
-     * 获取所有上传文件
+     * 获取指定字段的上传文件
      */
     public List<FileParam> getFileList(String fieldName) {
         return getFileMap().get(fieldName);

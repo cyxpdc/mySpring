@@ -1,6 +1,7 @@
 package com.pdc.spring.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public final class ReflectionUtil {
         Object instance;
         try {
             instance = cls.newInstance();
-        } catch (Exception e) {
+        } catch (IllegalAccessException | InstantiationException e) {
             LOGGER.error("new instance failure", e);
             throw new RuntimeException(e);
         }
@@ -43,7 +44,7 @@ public final class ReflectionUtil {
         try {
             method.setAccessible(true);
             result = method.invoke(obj, args);
-        } catch (Exception e) {
+        } catch (IllegalAccessException |  InvocationTargetException e) {
             LOGGER.error("invoke method failure", e);
             throw new RuntimeException(e);
         }
@@ -57,7 +58,7 @@ public final class ReflectionUtil {
         try {
             field.setAccessible(true);
             field.set(obj, value);
-        } catch (Exception e) {
+        } catch (IllegalAccessException e) {
             LOGGER.error("set field failure", e);
             throw new RuntimeException(e);
         }

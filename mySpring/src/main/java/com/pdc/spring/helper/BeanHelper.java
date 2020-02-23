@@ -31,7 +31,7 @@ public final class BeanHelper {
                 try {
                     obj = ReflectionUtil.invokeMethod(ReflectionUtil.newInstance(beanClass),beanClass.getMethod("getObject"));
                 } catch (NoSuchMethodException e) {
-                    LOGGER.error("获取factorybean失败");
+                    LOGGER.error("FactoryBean#getObject() failure");
                 }
             }else{
                 obj = ReflectionUtil.newInstance(beanClass);

@@ -57,6 +57,13 @@ public final class ConfigHelper {
     }
 
     /**
+     * 根据属性名获取 String 类型的属性值
+     */
+    public static String getString(String key) {
+        return PropsUtil.getString(CONFIG_PROPS, key);
+    }
+
+    /**
      * 获取应用 JSP 路径
      */
     public static String getAppJspPath() {
@@ -80,13 +87,6 @@ public final class ConfigHelper {
      */
     public static String getString(String key,String defaultValue) {
         return PropsUtil.getString(CONFIG_PROPS, key, defaultValue);
-    }
-
-    /**
-     * 根据属性名获取 String 类型的属性值
-     */
-    public static String getString(String key) {
-        return PropsUtil.getString(CONFIG_PROPS, key);
     }
 
     /**

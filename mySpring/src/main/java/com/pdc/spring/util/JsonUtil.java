@@ -1,8 +1,13 @@
 package com.pdc.spring.util;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
 
 /**
  * JSON 工具类
@@ -21,7 +26,7 @@ public final class JsonUtil {
         String json;
         try {
             json = OBJECT_MAPPER.writeValueAsString(obj);
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             LOGGER.error("convert POJO to JSON failure", e);
             throw new RuntimeException(e);
         }
@@ -35,7 +40,7 @@ public final class JsonUtil {
         T pojo;
         try {
             pojo = OBJECT_MAPPER.readValue(json, type);
-        } catch (Exception e) {
+        } catch (IOException e) {
             LOGGER.error("convert JSON to POJO failure", e);
             throw new RuntimeException(e);
         }
