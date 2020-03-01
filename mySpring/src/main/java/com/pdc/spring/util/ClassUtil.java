@@ -67,17 +67,17 @@ public final class ClassUtil {
                 URL url = urls.nextElement();
                 if (url != null) {
                     String protocol = url.getProtocol();//协议
-                    if (protocol.equals("file")) {
+                    if ("file".equals(protocol)) {
                         //得到包路径:/H:/mySpring/test5/target/test5-1.0.0/WEB-INF/classes/com/pdc/test5/
                         System.out.println(url.getPath());
                         String packagePath = url.getPath().replaceAll("%20", " ");
                         //H:/mySpring/test5/target/test5-1.0.0/WEB-INF/classes/com/pdc/test5/
                         System.out.println(packagePath);
                         addClass(classSet, packagePath, packageName);
-                    } else if (protocol.equals("jar")) {
-                        JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
-                        if (jarURLConnection != null) {
-                            JarFile jarFile = jarURLConnection.getJarFile();//读取Jar包下的文件
+                    } else if ("jar".equals(protocol)) {
+                        JarURLConnection jarUrlConnection = (JarURLConnection) url.openConnection();
+                        if (jarUrlConnection != null) {
+                            JarFile jarFile = jarUrlConnection.getJarFile();//读取Jar包下的文件
                             if (jarFile != null) {
                                 Enumeration<JarEntry> jarEntries = jarFile.entries();
                                 while (jarEntries.hasMoreElements()) {

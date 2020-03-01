@@ -10,9 +10,9 @@ import com.pdc.spring.advisor.impl.DefaultAdvice;
  * 切面代理，即代理对象
  * @author pdc
  */
-public abstract class AspectProxy implements Proxy {
+public abstract class BaseAspectProxy implements Proxy {
 
-    private static final Logger logger = LoggerFactory.getLogger(AspectProxy.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseAspectProxy.class);
 
     private Advice advice = new DefaultAdvice();
 

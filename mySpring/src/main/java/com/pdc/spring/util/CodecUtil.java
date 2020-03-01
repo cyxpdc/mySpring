@@ -18,7 +18,7 @@ public final class CodecUtil {
     /**
      * 将 URL 编码
      */
-    public static String encodeURL(String source) {
+    public static String encodeUrl(String source) {
         String target;
         try {
             target = URLEncoder.encode(source, "UTF-8");
@@ -32,7 +32,7 @@ public final class CodecUtil {
     /**
      * 将 URL 解码
      */
-    public static String decodeURL(String source) {
+    public static String decodeUrl(String source) {
         String target;
         try {
             target = URLDecoder.decode(source, "UTF-8");

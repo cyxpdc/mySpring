@@ -1,20 +1,20 @@
-package com.pdc.test5.aspect;
+package com.pdc.test4.aspect;
 
 import java.lang.reflect.Method;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.pdc.spring.annotation.Aspect;
 import com.pdc.spring.annotation.Controller;
-import com.pdc.spring.proxy.AspectProxy;
+import com.pdc.spring.proxy.BaseAspectProxy;
 
 /**
  * 拦截 Controller 所有方法
  * @author pdc
  */
 @Aspect(Controller.class)
-public class ControllerAspect extends AspectProxy {
+public class ControllerBaseAspect extends BaseAspectProxy {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ControllerAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ControllerBaseAspect.class);
 
     private long begin;
 

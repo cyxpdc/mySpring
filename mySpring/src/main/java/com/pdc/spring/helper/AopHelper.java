@@ -12,7 +12,7 @@ import com.pdc.spring.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.pdc.spring.annotation.Service;
-import com.pdc.spring.proxy.AspectProxy;
+import com.pdc.spring.proxy.BaseAspectProxy;
 import com.pdc.spring.proxy.Proxy;
 import com.pdc.spring.proxy.ProxyManager;
 import com.pdc.spring.proxy.TransactionProxy;
@@ -67,7 +67,7 @@ public final class AopHelper {
      */
     private static void addAspectProxy(Map<Class<?>, Set<Class<?>>> proxyMap){
         //遍历扩展AspectProxy的类，即切面类
-        for (Class<?> proxyClass : ClassHelper.getClassSetBySuper(AspectProxy.class)) {
+        for (Class<?> proxyClass : ClassHelper.getClassSetBySuper(BaseAspectProxy.class)) {
             if (proxyClass.isAnnotationPresent(Aspect.class)) {//如果带有@Aspect
                 Aspect aspect = proxyClass.getAnnotation(Aspect.class);
                 Set<Class<?>> targetClassSet = createTargetClassSet(aspect);//得到该切面对应的注解类集合

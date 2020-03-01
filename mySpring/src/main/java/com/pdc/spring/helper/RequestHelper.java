@@ -25,7 +25,9 @@ public final class RequestHelper {
      */
     public static Param createParam(HttpServletRequest request) throws IOException {
         List<FormParam> formParamList = new ArrayList<>();
-        //为什么要使用inputstream：https://blog.csdn.net/cxfly957/article/details/78785498?utm_source=blogxgwz0
+        //application/x- www-form-urlencoded是Post请求默认的请求体内容类型，也是form表单默认的类型。
+        // Servlet API规范中对该类型的请求内容提供了request.getParameter()方法来获取请求参数值。
+        // 但当请求内容不是该类型时，需要调用request.getInputStream()或request.getReader()方法来获取请求内容值。
         formParamList.addAll(parseParameterNames(request));//解析参数
         formParamList.addAll(parseInputStream(request));//解析输入流
         return new Param(formParamList);
@@ -63,7 +65,7 @@ public final class RequestHelper {
     }
 
     /**
-     * 解析输入流(url)，先通过&拆为kv对，再用=拆开kv对
+     * 解析输入流(请求体)，先通过&拆为kv对，再用=拆开kv对
      * @param request
      * @return
      * @throws IOException
@@ -71,7 +73,7 @@ public final class RequestHelper {
     private static List<FormParam> parseInputStream(HttpServletRequest request) throws IOException {
         List<FormParam> formParamList = new ArrayList<>();
         //String形式的请求体
-        String body = CodecUtil.decodeURL(StreamUtil.getStringInfo(request.getInputStream()));
+        String body = CodecUtil.decodeUrl(StreamUtil.getStringInfo(request.getInputStream()));
         if (StringUtil.isNotEmpty(body)) {
             String[] kvs = StringUtil.splitString(body, "&");//分隔所有键值对
             if (ArrayUtil.isNotEmpty(kvs)) {

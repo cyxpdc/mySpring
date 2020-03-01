@@ -7,7 +7,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import com.pdc.spring.annotation.Aspect;
 import com.pdc.spring.annotation.Controller;
-import com.pdc.spring.proxy.AspectProxy;
+import com.pdc.spring.proxy.BaseAspectProxy;
 import com.pdc.plugin.security.annotation.Authenticated;
 import com.pdc.plugin.security.annotation.Guest;
 import com.pdc.plugin.security.annotation.HasPermissions;
@@ -20,7 +20,7 @@ import com.pdc.plugin.security.exception.AuthzException;
  * @author pdc
  */
 @Aspect(Controller.class)
-public class AuthzAnnotationAspect extends AspectProxy {
+public class AuthzAnnotationBaseAspect extends BaseAspectProxy {
 
     /**
      * 定义一个基于授权功能的注解类数组

@@ -1,9 +1,6 @@
 package com.pdc.spring.bean;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.pdc.spring.util.CastUtil;
 import com.pdc.spring.util.CollectionUtil;
@@ -59,7 +56,9 @@ public class Param {
     public Map<String, List<FileParam>> getFileMap() {
         Map<String, List<FileParam>> fileMap = new HashMap<>();
         if (CollectionUtil.isNotEmpty(fileParamList)) {
-            for (FileParam fileParam : fileParamList) {
+            Iterator<FileParam> iterator = fileParamList.iterator();
+            while(iterator.hasNext()){//灵狐建议这里使用迭代器，其实不用也行，因为增加的不是遍历的元素
+                FileParam fileParam = iterator.next();
                 String fieldName = fileParam.getFieldName();
                 List<FileParam> fileParamList;
                 if (fileMap.containsKey(fieldName)) {
@@ -69,7 +68,19 @@ public class Param {
                 }
                 fileParamList.add(fileParam);
                 fileMap.put(fieldName, fileParamList);
+
             }
+            /*for (FileParam fileParam : fileParamList) {
+                String fieldName = fileParam.getFieldName();
+                List<FileParam> fileParamList;
+                if (fileMap.containsKey(fieldName)) {
+                    fileParamList = fileMap.get(fieldName);
+                } else {
+                    fileParamList = new ArrayList<>();
+                }
+                fileParamList.add(fileParam);
+                fileMap.put(fieldName, fileParamList);
+            }*/
         }
         return fileMap;
     }
