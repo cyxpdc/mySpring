@@ -35,6 +35,18 @@ public final class ClassHelper {
     }
 
     /**
+     * 获取应用包名下所有 Bean 类（包括：Service、Controller 等）
+     * 添加：FactoryBean https://blog.csdn.net/zknxx/article/details/79572387
+     */
+    public static Set<Class<?>> getBeanClassSet() {
+        Set<Class<?>> beanClassSet = new HashSet<>();
+        beanClassSet.addAll(getServiceClassSet());
+        beanClassSet.addAll(getControllerClassSet());
+        beanClassSet.addAll(getFactoryBeanClassSet());
+        return beanClassSet;
+    }
+
+    /**
      * 获取应用包名下所有 Service 类
      */
     public static Set<Class<?>> getServiceClassSet() {
@@ -60,18 +72,6 @@ public final class ClassHelper {
             }
         }
         return classSet;
-    }
-
-    /**
-     * 获取应用包名下所有 Bean 类（包括：Service、Controller 等）
-     * 添加：FactoryBean https://blog.csdn.net/zknxx/article/details/79572387
-     */
-    public static Set<Class<?>> getBeanClassSet() {
-        Set<Class<?>> beanClassSet = new HashSet<>();
-        beanClassSet.addAll(getServiceClassSet());
-        beanClassSet.addAll(getControllerClassSet());
-        beanClassSet.addAll(getFactoryBeanClassSet());
-        return beanClassSet;
     }
 
     /**

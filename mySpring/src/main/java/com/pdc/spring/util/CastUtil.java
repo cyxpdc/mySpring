@@ -15,6 +15,7 @@ public final class CastUtil {
 
     /**
      * 转为 String 型（提供默认值）
+     * 底层调用obj的toString
      */
     public static String castString(Object obj, String defaultValue) {
         return obj != null ? String.valueOf(obj) : defaultValue;

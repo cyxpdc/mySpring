@@ -1,12 +1,6 @@
 package com.pdc.spring.helper;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -108,7 +102,7 @@ public final class UploadHelper {
                 OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(filePath));
                 StreamUtil.copyStream(inputStream, outputStream);
             }
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             LOGGER.error("upload file failure", e);
             throw new RuntimeException(e);
         }

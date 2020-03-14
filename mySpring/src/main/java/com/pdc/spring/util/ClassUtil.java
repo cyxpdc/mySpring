@@ -2,6 +2,7 @@ package com.pdc.spring.util;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.Enumeration;
@@ -68,9 +69,7 @@ public final class ClassUtil {
                 if (url != null) {
                     String protocol = url.getProtocol();//协议
                     if ("file".equals(protocol)) {
-                        //得到包路径:/H:/mySpring/test5/target/test5-1.0.0/WEB-INF/classes/com/pdc/test5/
-                        System.out.println(url.getPath());
-                        String packagePath = url.getPath().replaceAll("%20", " ");
+                        String packagePath = url.getPath();
                         //H:/mySpring/test5/target/test5-1.0.0/WEB-INF/classes/com/pdc/test5/
                         System.out.println(packagePath);
                         addClass(classSet, packagePath, packageName);
@@ -95,7 +94,7 @@ public final class ClassUtil {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             LOGGER.error("get class set failure", e);
             throw new RuntimeException(e);
         }
@@ -134,7 +133,7 @@ public final class ClassUtil {
     }
 
     /**
-     * 添加指定类名的类
+     * 添加指定类名的类,因为并不是所有类都需要加载（只有controller、service、factory），所以默认为false
      * @param classSet
      * @param className
      */

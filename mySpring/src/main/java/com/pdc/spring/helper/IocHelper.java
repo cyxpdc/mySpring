@@ -56,6 +56,6 @@ public final class IocHelper {
             ReflectionUtil.setField(beanInstance, beanField, beanFieldInstance);
             return ;
         }
-        LOGGER.warn("Can not find "+ beanFieldClass + "'s instance");//也可以修改为异常
+        LOGGER.warn("Can not find "+ beanFieldClass + "'s instance");//也可以修改为异常，或者创建一个实例出来
     }
 }

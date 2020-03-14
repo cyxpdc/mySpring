@@ -15,6 +15,7 @@ public class AppSecurity implements SmartSecurity {
      * @param username 用户名
      * @return
      */
+    @Override
     public String getPassword(String username) {
         String sql = "SELECT password FROM user WHERE username = ?";
         return DatabaseHelper.query(sql, username);
@@ -25,6 +26,7 @@ public class AppSecurity implements SmartSecurity {
      * @param username 用户名
      * @return
      */
+    @Override
     public Set<String> getRoleNameSet(String username) {
         String sql = "SELECT r.role_name " +
                 "FROM user u, user_role ur, role r " +
@@ -38,6 +40,7 @@ public class AppSecurity implements SmartSecurity {
      * @param roleName 角色名
      * @return 权限名集合
      */
+    @Override
     public Set<String> getPermissionNameSet(String roleName) {
         String sql = "SELECT p.permission_name " +
                 "FROM role r, role_permission rp, permission p " +

@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * 服务器相关信息
  * 
- * @author 晓风轻
+ * @author pdc
  *
  */
 @Target(ElementType.TYPE) //加在类上

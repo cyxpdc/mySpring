@@ -14,7 +14,7 @@ public class TransactionProxy implements Proxy {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TransactionProxy.class);
     /**
-     * 保证同一线程中事务控制相关逻辑只会执行一次
+     * 保证同一线程中事务控制相关逻辑只会执行一次，可以理解为事务传播机制为只有一个事务,比如一个service方法调用另外的service方法
      */
     private static final ThreadLocal<Boolean> FLAG_HOLDER = ThreadLocal.withInitial(() -> false);
 

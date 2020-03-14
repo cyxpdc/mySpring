@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  * 请求转发器
  * @author pdc
  */
-@WebServlet(urlPatterns = "/*", loadOnStartup = 0)//接收所有请求
+@WebServlet(urlPatterns = "/*", loadOnStartup = 0)//接收所有请求，loadOnStartup = 0表示优先加载
 public class DispatcherServlet extends HttpServlet {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DispatcherServlet.class);

@@ -14,6 +14,7 @@ import org.apache.shiro.web.env.EnvironmentLoaderListener;
  */
 public class SmartSecurityPlugin implements ServletContainerInitializer {
 
+    @Override
     public void onStartup(Set<Class<?>> handlesTypes, ServletContext servletContext) throws ServletException {
         // 设置初始化参数，定制默认的应用程序配置文件
         servletContext.setInitParameter("shiroConfigLocations", "classpath:smart-security.ini");
